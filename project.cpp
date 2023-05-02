@@ -23,4 +23,5 @@ struct bookBorRe
 };
 int main()
 {
+    return 0;
 }
