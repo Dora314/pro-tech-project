@@ -73,17 +73,16 @@ int main()
         {
         case 1:
             hamSearchSach(soLuongSach, mangChuaSach);
-            break;
+            goto nhapLai;
         case 2:
             nhapXuat();
-            break;
+            goto nhapLai;
         case 3:
             quanLy();
-            break;
+            goto nhapLai;
         default:
             cout << "\nVui long nhap lai.\n";
             goto nhapLai;
-            break;
         }
     case 'n':
     case 'N':
@@ -153,11 +152,6 @@ void hamSearchSach(int n, book mangSach[])
     cout << "Moi ban chon: ";
     cin >> search;
     searchTheoThongTin(search, n, mangSach);
-    break;
-default:
-    cout << "Chon khong hop le";
-    break;
-}
 }
 void searchTheoThongTin(int search, int n, book mangSach[])
 {
@@ -242,7 +236,7 @@ void quanLy(void)
 {
     int search;
     cout << "\nQuan ly sach\n";
-    cout << "Ten người mượn   - chon '1' \n";
+    cout << "Ten N  - chon '1' \n";
     cout << "Ten sách         - chon '2' \n";
     cout << "Ngay muon        - chon '3' \n";
     cout << "Ngay den - chon '4' \n";
