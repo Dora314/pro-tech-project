@@ -118,24 +118,25 @@ void hoiAdmin(char &chAd)
 }
 void dangNhapKyAdmin(bool quyenAdmin)
 {
-    string username, pass;
+    char username[100];
+    char passMacDinh[] = "LamHandsome";
+    char nhapPass[100];
+    char userMacDinh[] = "admin";
     do
     {
-        cout << "\nNhap ten dang nhap ";
-        getline(cin, username);
-        char passAd [] = "adminthuvien123@";
-        char inPassAd [100];
-        cout << "Moi ban nhap mat khau cua Admin de tiep tuc: "; 
-        cin.getline(inPassAd, 99);
-        if (strcmp(passAd, inPassAd) == 0)
-        {
+        cout << "\nNhap ten dang nhap: ";
+        cin.getline(username, 99);
+        cout << "\nMoi ban nhap mat khau: ";
+        cin.getline(nhapPass, 99);
+        if (strcmp(passMacDinh, nhapPass) == 0 && strcmp(userMacDinh, username) == 0)
             quyenAdmin = true;
-        }
+        else
+            cout << "\nTai khoan hoac mat khau sai. Vui long nhap lai.";
     } while (quyenAdmin == false);
 }
 void inThongTinSach(int n, book mangSach[])
 {
-    cout << "Thong tin sach: \n";
+    cout << "Thong tin sach hien co\n";
     for (int i = 0; i < n; i++)
     {
         mangSach[i].inSach();
