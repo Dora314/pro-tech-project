@@ -1,5 +1,5 @@
 // Hệ thống quản lý thư viện bởi team 8
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 struct date
 {
@@ -43,16 +43,56 @@ struct book // struct thông tin sách bao gồm tên, các kiểu
         cout << " " << tenSach << " " << tenTacGia << " " << theLoai << " " << nxb << " " << namPhatHanh << '\n';
     }
 };
-void checkAdmin(char &chAd);
+void hoiAdmin(char &chAd);
+void dangNhapKyAdmin(bool quyenAdmin);
 void hamSearchSach(int n, book mangSach[]);
+void nhapXuat(void);
+void quanLy(void);
 void searchTheoThongTin(int search, int n, book mangSach[]);
 void inThongTinSach(int n, book mangSach[]);
 int main()
 {
     char chAd;
-    checkAdmin(chAd);
+    bool quyenAdmin = false;
     book mangChuaSach[100];
-    int soLuongSach;
+    int soLuongSach, tinhNang;
+    hoiAdmin(chAd); // kiểm tra có phải admin hay không
+    switch (chAd)
+    {
+    case 'y':
+    case 'Y':
+    nhapLai:
+        dangNhapKyAdmin(quyenAdmin);
+        cout << "\nMoi chon tinh nang\n";
+        cout << "Tim kiem sach              - chon '1' \n";
+        cout << "Nhap sach vao thu vien     - chon '2' \n";
+        cout << "Quan ly muon tra sach      - chon '3' \n";
+        cout << "Moi nhap ";
+        cin >> tinhNang;
+        switch (tinhNang)
+        {
+        case 1:
+            hamSearchSach(soLuongSach, mangChuaSach);
+            break;
+        case 2:
+            nhapXuat();
+            break;
+        case 3:
+            quanLy();
+            break;
+        default:
+            cout << "\nVui long nhap lai.\n";
+            goto nhapLai;
+            break;
+        }
+    case 'n':
+    case 'N':
+        hamSearchSach(soLuongSach, mangChuaSach); // non-admin chi duoc tim kiem sach
+        break;
+    default:
+        cout << "Vui long khoi dong lai chuong trinh.";
+        break;
+    }
     cout << "Nhap so luong sach: ";
     cin >> soLuongSach;
     for (int i = 0; i < soLuongSach; i++)
@@ -62,8 +102,9 @@ int main()
     }
     hamSearchSach(soLuongSach, mangChuaSach);
     // hamSearchSach(sachObject.tenSach,sachObject.theLoai,sachObject.tenTacGia,sachObject.nxb,sachObject.namPhatHanh);
+    return 0;
 }
-void checkAdmin(char &chAd)
+void hoiAdmin(char &chAd)
 {
     cout << "\nBan co phai la admin(y/n)? ";
     cin.get(chAd);
@@ -72,6 +113,15 @@ void checkAdmin(char &chAd)
         cout << "Vui long nhap lai(y/n) ";
         cin.get(chAd);
     } while (chAd != 'y' || chAd != 'n' || chAd != 'Y' || chAd != 'N');
+}
+void dangNhapKyAdmin(bool quyenAdmin)
+{
+    string username, pass;
+    do
+    {
+        cout << "\nNhap ten dang nhap ";
+        getline(cin, username);
+    } while (quyenAdmin == false);
 }
 void inThongTinSach(int n, book mangSach[])
 {
@@ -86,7 +136,7 @@ void inThongTinSach(int n, book mangSach[])
 void hamSearchSach(int n, book mangSach[])
 {
     int search;
-    cout << "Chon thong tin ban muon tim kiem \n";
+    cout << "Chon thong tin ban muon tim kiem\n";
     cout << "Ten sach      - chon '1' \n";
     cout << "Ten tac gia   - chon '2' \n";
     cout << "The loai      - chon '3' \n";
