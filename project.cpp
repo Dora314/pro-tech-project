@@ -1,5 +1,4 @@
 // Hệ thống quản lý thư viện bởi team 8
-// Check
 #include <iostream>
 using namespace std;
 struct date
