@@ -43,13 +43,14 @@ struct book // struct thông tin sách bao gồm tên, các kiểu
         cout << " " << tenSach << " " << tenTacGia << " " << theLoai << " " << nxb << " " << namPhatHanh << '\n';
     }
 };
-
+void checkAdmin(char &chAd);
 void hamSearchSach(int n, book mangSach[]);
 void searchTheoThongTin(int search, int n, book mangSach[]);
 void inThongTinSach(int n, book mangSach[]);
-
 int main()
 {
+    char chAd;
+    checkAdmin(chAd);
     book mangChuaSach[100];
     int soLuongSach;
     cout << "Nhap so luong sach: ";
@@ -62,7 +63,16 @@ int main()
     hamSearchSach(soLuongSach, mangChuaSach);
     // hamSearchSach(sachObject.tenSach,sachObject.theLoai,sachObject.tenTacGia,sachObject.nxb,sachObject.namPhatHanh);
 }
-
+void checkAdmin(char &chAd)
+{
+    cout << "\nBan co phai la admin(y/n)? ";
+    cin.get(chAd);
+    do
+    {
+        cout << "Vui long nhap lai(y/n) ";
+        cin.get(chAd);
+    } while (chAd != 'y' || chAd != 'n' || chAd != 'Y' || chAd != 'N');
+}
 void inThongTinSach(int n, book mangSach[])
 {
     cout << "Thong tin sach: \n";
