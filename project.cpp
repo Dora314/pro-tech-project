@@ -1,29 +1,20 @@
 // Hệ thống quản lý thư viện bởi team 8
-// Check
 #include <iostream>
 using namespace std;
-struct date
-{
+
+struct date{
     int d;
     int m;
     int y;
 };
-struct bookBorRe
-{
-    book name;
-    char borName[50];
-    date borDay;
-    date reDay;
-};
-struct book // struct thông tin sách bao gồm tên, các kiểu
-{
+
+struct book {// struct thông tin sách bao gồm tên, các kiểu{
     string tenSach;
     string theLoai;
     string tenTacGia;
     string nxb;
     int namPhatHanh; // check year
-    friend istream &operator>>(istream &inputInfo, book &thongTin)
-    { // phải có tham chiếu & đề thay đổi biến randomday
+    friend istream &operator>>(istream &inputInfo, book &thongTin){ // phải có tham chiếu & đề thay đổi biến randomday
         cout << "Nhap ten sach: ";
         inputInfo >> thongTin.tenSach;
         cout << "Nhap the loai sach: ";
@@ -32,40 +23,87 @@ struct book // struct thông tin sách bao gồm tên, các kiểu
         inputInfo >> thongTin.tenTacGia;
         cout << "Nhap nha xuat ban: ";
         inputInfo >> thongTin.nxb;
-        do
-        {
+        do{
             cout << "Nhap nam phat hanh: ";
             inputInfo >> thongTin.namPhatHanh;
         } while (thongTin.namPhatHanh < 1);
+        cout << "                   "<< '\n';
         return inputInfo;
     }
-    void inSach()
-    {
+    void inSach(){
         cout << " " << tenSach << " " << tenTacGia << " " << theLoai << " " << nxb << " " << namPhatHanh << '\n';
     }
 };
 
-void hamSearchSach(int n, book mangSach[]);
-void searchTheoThongTin(int search, int n, book mangSach[]);
+struct bookBorRe{
+    book name;
+    char borName[50];
+    date borDay;
+    date reDay;
+};
 void inThongTinSach(int n, book mangSach[]);
+void hamSearchSach (int n, book mangSach[]);
+void searchTheoThongTin(int search, int n, book mangSach[]);
 
 int main()
 {
     book mangChuaSach[100];
-    int soLuongSach;
-    cout << "Nhap so luong sach: ";
-    cin >> soLuongSach;
-    for (int i = 0; i < soLuongSach; i++)
-    {
-        cout << "Moi ban nhap thong tin sach \n";
-        cin >> mangChuaSach[i];
-    }
-    hamSearchSach(soLuongSach, mangChuaSach);
-    // hamSearchSach(sachObject.tenSach,sachObject.theLoai,sachObject.tenTacGia,sachObject.nxb,sachObject.namPhatHanh);
-}
+    int soLuongSachTrongMang = 0; // số lượng của sách sau mỗi lần nhập, vd lần đâu là 0 -> 1 ->...n sách (index)
 
-void inThongTinSach(int n, book mangSach[])
-{
+    char ad;
+    cout << "Ban la admin hay khong la admin \n";
+    cout << "Neu la Admin, vui long dang nhap \"a\" de thuc hien cac tinh nang quan tri \n";
+    cout << "Neu ban kh la Admin, vui long dang nhap \"b\" \n";
+    // ở chổ này tạm thời log in tui chua suy nghĩ ra, nên mình làm thời dùng kết quả = d để dùng cho if -> từ if = d -> thuc hien cac tinh năng của admin 
+    cout <<"Moi ban nhap: ";
+    cin.get(ad);
+    if (ad == 'a'){
+        while (1){
+            int n;
+            cout << "----------------------DU AN QUAN LY SACH----------------------\n";
+            cout << "1. Them sach \n";
+            cout << "2. Tim sach \n";
+            cout << "3. Quan ly thu vien \n";
+            cout << "0.Exit \n";
+            cout << "------------------------------------------------------------\n";
+            cout << "Chon so phu hop voi lua chon: ";
+            cin >> n;
+            if (n == 1){
+                cout << "Moi ban nhap thong tin sach \n";
+                cin >> mangChuaSach[soLuongSachTrongMang];
+                soLuongSachTrongMang++;
+            }
+            if (n == 2){
+                hamSearchSach(soLuongSachTrongMang + 1, mangChuaSach); 
+                // cộng 1 bởi vì số lượng sách trong mảng được khởi tạo từ 0 - tức vị trí index -> nên phải cộng 1 giá trị
+            }
+            if (n == 3){
+            }
+            if (n == 0){
+                break;
+            }
+        }
+    } 
+
+    if (ad == 'b'){
+        while (1){
+            int n;
+            cout << "----------------------DU AN QUAN LY SACH----------------------\n";
+            cout << "1. Tim sach \n";
+            cout << "0.Exit \n";
+            cout << "------------------------------------------------------------\n";
+            cout << "Chon so phu hop voi lua chon: ";
+            cin >> n;
+            if ( n == 1){
+                hamSearchSach(soLuongSachTrongMang + 1,mangChuaSach);
+            }
+            if ( n == 0){
+                break;
+            }
+        }       
+    }
+}
+void inThongTinSach(int n, book mangSach[]){
     cout << "Thong tin sach: \n";
     for (int i = 0; i < n; i++)
     {
@@ -74,8 +112,7 @@ void inThongTinSach(int n, book mangSach[])
     }
 }
 
-void hamSearchSach(int n, book mangSach[])
-{
+void hamSearchSach(int n, book mangSach[]){
     int search;
     cout << "Chon thong tin ban muon tim kiem \n";
     cout << "Ten sach      - chon '1' \n";
@@ -86,30 +123,10 @@ void hamSearchSach(int n, book mangSach[])
     cout << "Thoat         - chon '0' \n";
     cout << "Moi ban chon: ";
     cin >> search;
-    switch (search)
-    {
-    case 1:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 2:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 3:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 4:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 0:
-        break;
-    default:
-        cout << "Chon khong hop le";
-        break;
-    }
+    searchTheoThongTin(search, n, mangSach);
 }
 
-void searchTheoThongTin(int search, int n, book mangSach[])
-{
+void searchTheoThongTin(int search, int n, book mangSach[]){
     string data;
     if (search = 1)
     {
@@ -119,6 +136,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
         for (int i = 0; i < n; i++)
         {
             if (mangSach[i].tenSach.find(data) != string::npos)
+
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
                 mangSach[i].inSach();
