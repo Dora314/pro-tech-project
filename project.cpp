@@ -1,6 +1,5 @@
 // Hệ thống quản lý thư viện bởi team 8
 #include <bits/stdc++.h>
-#include <fstream>
 using namespace std;
 struct date
 {
@@ -44,14 +43,13 @@ struct book // struct thông tin sách bao gồm tên, các kiểu
         cout << " " << tenSach << " " << tenTacGia << " " << theLoai << " " << nxb << " " << namPhatHanh << '\n';
     }
 };
-
 void hoiAdmin(char &chAd);
 void dangNhapKyAdmin(bool quyenAdmin);
+void inThongTinSach(int n, book mangSach[]);
 void hamSearchSach(int n, book mangSach[]);
+void searchTheoThongTin(int search, int n, book mangSach[]);
 void nhapXuat(void);
 void quanLy(void);
-void searchTheoThongTin(int search, int n, book mangSach[]);
-void inThongTinSach(int n, book mangSach[]);
 int main()
 {
     char chAd;
@@ -63,8 +61,8 @@ int main()
     {
     case 'y':
     case 'Y':
+        dangNhapKyAdmin(quyenAdmin); // kiểm tra để cấp quyền admin
     nhapLai:
-        dangNhapKyAdmin(quyenAdmin);
         cout << "\nMoi chon tinh nang\n";
         cout << "Tim kiem sach              - chon '1' \n";
         cout << "Nhap sach vao thu vien     - chon '2' \n";
@@ -143,7 +141,6 @@ void inThongTinSach(int n, book mangSach[])
         cout << '\n';
     }
 }
-
 void hamSearchSach(int n, book mangSach[])
 {
     int search;
@@ -153,31 +150,15 @@ void hamSearchSach(int n, book mangSach[])
     cout << "The loai      - chon '3' \n";
     cout << "Nha xuat ban  - chon '4' \n";
     cout << "Nam phat hanh - chon '5' \n"; // tinh nang lam sau
-    cout << "Thoat         - chon '0' \n";
     cout << "Moi ban chon: ";
     cin >> search;
-    switch (search)
-    {
-    case 1:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 2:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 3:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 4:
-        searchTheoThongTin(search, n, mangSach);
-        break;
-    case 0:
-        break;
-    default:
-        cout << "Chon khong hop le";
-        break;
-    }
+    searchTheoThongTin(search, n, mangSach);
+    break;
+default:
+    cout << "Chon khong hop le";
+    break;
 }
-
+}
 void searchTheoThongTin(int search, int n, book mangSach[])
 {
     string data;
@@ -253,4 +234,20 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             cout << "Nha xuat ban sach nay khong co trong thu vien !";
         }
     }
+}
+void nhapXuat(void)
+{
+}
+void quanLy(void)
+{
+    int search;
+    cout << "\nQuan ly sach\n";
+    cout << "Ten người mượn   - chon '1' \n";
+    cout << "Ten sách         - chon '2' \n";
+    cout << "Ngay muon        - chon '3' \n";
+    cout << "Ngay den - chon '4' \n";
+    cout << "Nam phat hanh - chon '5' \n"; // tinh nang lam sau
+    cout << "Thoat         - chon '0' \n";
+    cout << "Moi ban chon: ";
+    cin >> search;
 }
