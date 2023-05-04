@@ -1,5 +1,6 @@
 // Hệ thống quản lý thư viện bởi team 8
 #include <bits/stdc++.h>
+#include <fstream>
 using namespace std;
 struct date
 {
@@ -43,6 +44,7 @@ struct book // struct thông tin sách bao gồm tên, các kiểu
         cout << " " << tenSach << " " << tenTacGia << " " << theLoai << " " << nxb << " " << namPhatHanh << '\n';
     }
 };
+
 void hoiAdmin(char &chAd);
 void dangNhapKyAdmin(bool quyenAdmin);
 void hamSearchSach(int n, book mangSach[]);
@@ -121,6 +123,14 @@ void dangNhapKyAdmin(bool quyenAdmin)
     {
         cout << "\nNhap ten dang nhap ";
         getline(cin, username);
+        char passAd [] = "adminthuvien123@";
+        char inPassAd [100];
+        cout << "Moi ban nhap mat khau cua Admin de tiep tuc: "; 
+        cin.getline(inPassAd, 99);
+        if (strcmp(passAd, inPassAd) == 0)
+        {
+            quyenAdmin = true;
+        }
     } while (quyenAdmin == false);
 }
 void inThongTinSach(int n, book mangSach[])
