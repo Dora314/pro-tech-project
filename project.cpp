@@ -148,7 +148,7 @@ void hamSearchSach(int n, book mangSach[])
     cout << "Ten tac gia   - chon '2' \n";
     cout << "The loai      - chon '3' \n";
     cout << "Nha xuat ban  - chon '4' \n";
-    cout << "Nam phat hanh - chon '5' \n"; // tinh nang lam sau
+    cout << "Nam phat hanh - chon '5' \n"; // tinh nang lam sau // Done nhé
     cout << "Moi ban chon: ";
     cin >> search;
     searchTheoThongTin(search, n, mangSach);
@@ -156,6 +156,7 @@ void hamSearchSach(int n, book mangSach[])
 void searchTheoThongTin(int search, int n, book mangSach[])
 {
     string data;
+    int namPhatHanh;
     switch (search)
     {
     case 1:
@@ -201,7 +202,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             cout << "The loai khong co trong thu vien!";
         break;
     case 4:
-        cout << "Moi ban nhap nha xuat ban : ";
+        cout << "Moi ban nhap nha xuat ban: ";
         cin.ignore();
         getline(cin, data);
         bool checkTimThongTin = false; // tra ve false neu kh tim duoc
@@ -213,6 +214,22 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             }
         if (checkTimThongTin == false)
             cout << "Nha xuat ban sach nay khong co trong thu vien !";
+        break;
+    case 5:
+        bool checkTimThongTin = false;
+        do
+        {
+            cout << "\nMoi ban nhap nam phat hanh: ";
+            cin >> namPhatHanh;
+        } while (namPhatHanh < 1);
+        for (int i = 0; i < n; i++)
+            if (mangSach[i].namPhatHanh == namPhatHanh)
+            {
+                checkTimThongTin = true;
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
+            }
+        if (checkTimThongTin == false)
+            cout << "\nNam xuat ban nay khong co trong thu vien !";
         break;
     default:
         cout << "Lua chon khong hop le, vui long khoi dong lai chuong trinh.";
@@ -227,7 +244,7 @@ void quanLy(int n, bookBorRe mangMuonTra[])
     int search;
     string data;
 nhapLai:
-    cout << "\nQuan ly sach: muon tra, so luong sach, xem sach hien co:";
+    cout << "\nQuan ly sach:";
     cout << "\nTen nguoi muon    - chon '1'";
     cout << "\nTen sach          - chon '2'";
     cout << "\nMoi ban chon: ";
