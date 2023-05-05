@@ -93,14 +93,13 @@ int main()
         cout << "Vui long khoi dong lai chuong trinh.";
         break;
     }
-    cout << "Nhap so luong sach: ";
+    /*cout << "Nhap so luong sach: ";
     cin >> soLuongSach;
     for (int i = 0; i < soLuongSach; i++)
     {
         cout << "Moi ban nhap thong tin sach \n";
         cin >> mangChuaSach[i];
-    }
-    hamSearchSach(soLuongSach, mangChuaSach);
+    }*/
     // hamSearchSach(sachObject.tenSach,sachObject.theLoai,sachObject.tenTacGia,sachObject.nxb,sachObject.namPhatHanh);
     return 0;
 }
@@ -157,9 +156,11 @@ void hamSearchSach(int n, book mangSach[])
 void searchTheoThongTin(int search, int n, book mangSach[])
 {
     string data;
-    if (search = 1)
+    switch (search)
     {
+    case 1:
         cout << "Moi ban nhap ten sach: ";
+        cin.ignore();
         getline(cin, data);
         bool checkTimThongTin = false; // tra ve false neu kh tim duoc
         for (int i = 0; i < n; i++)
@@ -170,10 +171,10 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             }
         if (checkTimThongTin == false)
             cout << "Sach khong co trong thu vien !";
-    }
-    if (search = 2)
-    {
+        break;
+    case 2:
         cout << "Moi ban nhap ten tac gia: ";
+        cin.ignore();
         getline(cin, data);
         bool checkTimThongTin = false; // tra ve false neu kh tim duoc
         for (int i = 0; i < n; i++)
@@ -184,10 +185,10 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             }
         if (checkTimThongTin == false)
             cout << "Sach cua tac gia nay hien chua co trong thu vien !";
-    }
-    if (search = 3)
-    {
+        break;
+    case 3:
         cout << "Moi ban nhap the loai: ";
+        cin.ignore();
         getline(cin, data);
         bool checkTimThongTin = false; // tra ve false neu kh tim duoc
         for (int i = 0; i < n; i++)
@@ -198,10 +199,10 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             }
         if (checkTimThongTin == false)
             cout << "The loai khong co trong thu vien!";
-    }
-    if (search = 4)
-    {
+        break;
+    case 4:
         cout << "Moi ban nhap nha xuat ban : ";
+        cin.ignore();
         getline(cin, data);
         bool checkTimThongTin = false; // tra ve false neu kh tim duoc
         for (int i = 0; i < n; i++)
@@ -212,6 +213,10 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             }
         if (checkTimThongTin == false)
             cout << "Nha xuat ban sach nay khong co trong thu vien !";
+        break;
+    default:
+        cout << "Lua chon khong hop le, vui long khoi dong lai chuong trinh.";
+        break;
     }
 }
 void nhapXuat(void)
