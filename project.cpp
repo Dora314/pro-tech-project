@@ -1,21 +1,22 @@
 // Hệ thống quản lý thư viện bởi team 8
 #include <bits/stdc++.h>
-#include <fstream>
 using namespace std;
-
-struct date{ // 
+struct date
+{ //
     int d;
     int m;
     int y;
 };
-struct book {// struct thông tin sách bao gồm tên, các kiểu
+struct book
+{ // struct thông tin sách bao gồm tên, các kiểu
     string tenSach;
     string theLoai;
     string tenTacGia;
     string nxb;
     int namPhatHanh; // check year
-  
-    friend istream &operator>>(istream &inputInfo, book &thongTin){ // phải có tham chiếu & đề thay đổi biến 
+
+    friend istream &operator>>(istream &inputInfo, book &thongTin)
+    { // phải có tham chiếu & đề thay đổi biến
         cout << "Nhap ten sach: ";
         inputInfo >> thongTin.tenSach;
         cout << "Nhap the loai sach: ";
@@ -24,15 +25,13 @@ struct book {// struct thông tin sách bao gồm tên, các kiểu
         inputInfo >> thongTin.tenTacGia;
         cout << "Nhap nha xuat ban: ";
         inputInfo >> thongTin.nxb;
-        do{
+        do
+        {
             cout << "Nhap nam phat hanh: ";
             inputInfo >> thongTin.namPhatHanh;
         } while (thongTin.namPhatHanh < 1);
-        cout << "                   "<< '\n';
+        cout << "                   " << '\n';
         return inputInfo;
-    }
-    void inSach(){
-        cout << " " << tenSach << " " << tenTacGia << " " << theLoai << " " << nxb << " " << namPhatHanh << '\n';
     }
 };
 struct bookBorRe
@@ -50,15 +49,15 @@ void hamSearchSach(int n, book mangSach[]);
 void searchTheoThongTin(int search, int n, book mangSach[]);
 void quanLy(int n, bookBorRe mangMuonTra[]);
 
-//void nhapXuat(void);         => hàm này chưa viết  
+// void nhapXuat(void);         => hàm này chưa viết
 
 int main()
 {
     char chAd;
-    bool quyenAdmin = false; 
+    bool quyenAdmin = false;
     book mangChuaSach[100];
     bookBorRe mangMuonTra[100];
-    int soLuongSach , tinhNang;
+    int soLuongSach, tinhNang;
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
     switch (chAd)
     {
@@ -78,7 +77,7 @@ int main()
             hamSearchSach(soLuongSach, mangChuaSach);
             goto nhapLai;
         case 2:
-            //nhapXuat(); => chưa viết
+            // nhapXuat(); => chưa viết
             goto nhapLai;
         case 3:
             quanLy(soLuongSach, mangMuonTra);
@@ -106,7 +105,8 @@ int main()
     hamSearchSach(soLuongSach, mangChuaSach);
     return 0;
 }
-void hoiAdmin(char &chAd){ // có gì sao truyền ta, rồi nó return cái gì ? 
+void hoiAdmin(char &chAd)
+{ // có gì sao truyền ta, rồi nó return cái gì ?
     cout << "\nBan co phai la admin(y/n)? ";
     cin.get(chAd);
     do
@@ -116,7 +116,7 @@ void hoiAdmin(char &chAd){ // có gì sao truyền ta, rồi nó return cái gì
     } while (chAd != 'y' || chAd != 'n' || chAd != 'Y' || chAd != 'N');
 }
 
-void dangNhapKyAdmin(bool quyenAdmin)  
+void dangNhapKyAdmin(bool quyenAdmin)
 {
     char username[100];
     char passMacDinh[] = "LamHandsome";
@@ -135,16 +135,15 @@ void dangNhapKyAdmin(bool quyenAdmin)
     } while (quyenAdmin == false);
 }
 
-void inThongTinSach(int n, book mangSach[]){ // in thông tin sách trong mảng book
-    cout << "Thong tin sach: \n"; 
+void inThongTinSach(int n, book mangSach[])
+{ // in thông tin sách trong mảng book
+    cout << "Thong tin sach: \n";
     for (int i = 0; i < n; i++)
-    {
-        mangSach[i].inSach();
-        cout << '\n';
-    }
+        cout << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
 }
 
-void hamSearchSach(int n, book mangSach[]){
+void hamSearchSach(int n, book mangSach[])
+{
     int search;
     cout << "Chon thong tin ban muon tim kiem\n";
     cout << "Ten sach      - chon '1' \n";
@@ -158,7 +157,8 @@ void hamSearchSach(int n, book mangSach[]){
     searchTheoThongTin(search, n, mangSach);
 }
 
-void searchTheoThongTin(int search, int n, book mangSach[]){
+void searchTheoThongTin(int search, int n, book mangSach[])
+{
     string data;
     bool checkTimThongTin = false; // tra ve false neu kh tim duoc
     switch (search)
@@ -171,7 +171,7 @@ void searchTheoThongTin(int search, int n, book mangSach[]){
             if (mangSach[i].tenSach.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';  
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
             }
         }
         if (checkTimThongTin == false)
@@ -179,15 +179,15 @@ void searchTheoThongTin(int search, int n, book mangSach[]){
             cout << "Sach khong co trong thu vien !";
         }
         break;
-    case 2: 
+    case 2:
         cout << "Moi ban nhap ten tac gia: ";
         getline(cin, data);
         for (int i = 0; i < n; i++)
         {
             if (mangSach[i].tenTacGia.find(data) != string::npos)
-            {                            
-                checkTimThongTin = true; 
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';  
+            {
+                checkTimThongTin = true;
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
             }
         }
         if (checkTimThongTin == false)
@@ -198,13 +198,13 @@ void searchTheoThongTin(int search, int n, book mangSach[]){
     case 3:
         cout << "Moi ban nhap the loai: ";
         getline(cin, data);
-        bool checkTimThongTin = false; 
+        bool checkTimThongTin = false;
         for (int i = 0; i < n; i++)
         {
             if (mangSach[i].theLoai.find(data) != string::npos)
-            {                            
-                checkTimThongTin = true; 
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';  
+            {
+                checkTimThongTin = true;
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
             }
         }
         if (checkTimThongTin == false)
@@ -218,9 +218,9 @@ void searchTheoThongTin(int search, int n, book mangSach[]){
         for (int i = 0; i < n; i++)
         {
             if (mangSach[i].nxb.find(data) != string::npos)
-            {                           
-                checkTimThongTin = true; 
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';  
+            {
+                checkTimThongTin = true;
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
             }
         }
         if (checkTimThongTin == false)
@@ -230,7 +230,7 @@ void searchTheoThongTin(int search, int n, book mangSach[]){
         break;
     case 5:
         int year;
-        do 
+        do
         {
             cout << "Moi ban nhap nha xuat ban : ";
             cin >> year;
@@ -238,17 +238,16 @@ void searchTheoThongTin(int search, int n, book mangSach[]){
         for (int i = 0; i < n; i++)
         {
             if (mangSach[i].namPhatHanh == year)
-            {                           
-                checkTimThongTin = true; 
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';  
+            {
+                checkTimThongTin = true;
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
             }
-        
         }
         if (checkTimThongTin == false)
         {
             cout << "Thu vien hien khong co sach cua nam nay !";
         }
-        break;   
+        break;
     default:
         cout << "Lua chon cua ban khong hop le !!!";
         break;
@@ -261,8 +260,9 @@ void quanLy(int n, bookBorRe mangMuonTra[])
     string data;
 nhapLai:
     cout << "\nQuan ly sach: muon tra, so luong sach, xem sach hien co \n";
-    cout << "Ten nguoi muon         - chon '1' \n";
-    cout << "Quan ly so luong sach  - chon '2' \n";
+    cout << "Ten nguoi muon          - chon '1'\n";
+    cout << "Quan ly so luong sach   - chon '2'\n";
+    cout << "Quay lai chon tinh nang - chon '0'\n";
     cout << "Moi ban chon: ";
     cin >> search;
     switch (search)
@@ -274,8 +274,8 @@ nhapLai:
         bool checkTimThongTin = false; // tra ve false neu kh tim duoc
         for (int i = 0; i < n; i++)
             if (mangMuonTra[i].borName.find(data) != string::npos)
-            {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
-                checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
+            {                            // hàm find, nếu nội dung của data trung với tenNguoiMuon -> trả ra giá trị đầu tiên
+                checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenNguoiMuon trùng với data
                 cout << mangMuonTra[i].sachMuonTra.tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay.d << "/" << mangMuonTra[i].borDay.m << "/" << mangMuonTra[i].borDay.y << "    " << mangMuonTra[i].reDay.d << "/" << mangMuonTra[i].reDay.m << "/" << mangMuonTra[i].reDay.y << "\n";
             }
         if (checkTimThongTin == false)
@@ -295,9 +295,12 @@ nhapLai:
         if (checkTimThongTin == false)
             cout << "Sach khong co trong thu vien !";
         goto nhapLai;
+    case 0:
+        cout << "Dang tro lai chon tinh nang...";
+        break;
     default:
         cout << "Lua chon khong hop le. Vui long chon lai.";
         goto nhapLai;
     }
 }
-// làm sao để khi quản ly xong exit ra ngoài main á ? + và thông tin người mượn ở đâu 
+// làm sao để khi quản ly xong exit ra ngoài main(chon tinh nang?) á\/done nhé + và thông tin người mượn ở đâu
