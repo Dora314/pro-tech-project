@@ -3,7 +3,7 @@
 #include <fstream>
 using namespace std;
 
-struct date{ 
+struct date{ // 
     int d;
     int m;
     int y;
