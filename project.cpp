@@ -55,8 +55,8 @@ void quanLy(int n, bookBorRe mangMuonTra[]);
 int main()
 {
     char chAd;
-    book mangChuaSach[100];
-    bookBorRe mangMuonTra[100];
+    book mangChuaSach[5000];
+    bookBorRe mangMuonTra[5000];
     int soLuongSach, tinhNang;
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
     nhapFile(mangChuaSach);
@@ -283,7 +283,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
         int year;
         do
         {
-            cout << "Moi ban nhap nha xuat ban : ";
+            cout << "Moi ban nhap nam xuat ban : ";
             cin >> year;
         } while (year < 1);
         for (int i = 0; i < n; i++)
