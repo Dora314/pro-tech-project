@@ -41,16 +41,16 @@ struct bookBorRe
     date borDay;      // ngay muon
     date reDay;       // ngay den han
 };
-void xuatFile(book mangChuaSach[]);
-void nhapFile(book mangChuaSach[]);
+void xuatFile(book a[]);
+void nhapFile(book a[]);
+// void xuatFile(bookBorRe b[]);
+// void xuatFile(bookBorRe b[]);
 void hoiAdmin(char &chAd);
 void dangNhapKyAdmin();
 void inThongTinSach(int n, book mangSach[]);
 void hamSearchSach(int n, book mangSach[]);
 void searchTheoThongTin(int search, int n, book mangSach[]);
 void quanLy(int n, bookBorRe mangMuonTra[]);
-
-// void nhapXuat(void);         => hàm này chưa viết
 
 int main()
 {
@@ -59,22 +59,24 @@ int main()
     bookBorRe mangMuonTra[100];
     int soLuongSach, tinhNang;
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
+    nhapFile(mangChuaSach);
     switch (chAd)
     {
     case 'y':
     case 'Y':
-    nhapLai:
         dangNhapKyAdmin();
+    nhapLai:
+        system("cls"); // xoa man hinh giong clrscr trong pascal
         cout << "\nMoi chon tinh nang\n";
         cout << "Tim kiem sach              - chon '1' \n";
         cout << "Nhap sach vao thu vien     - chon '2' \n";
         cout << "Quan ly muon tra sach      - chon '3' \n";
         cout << "Xin moi nhap tinh nang theo so: ";
         cin >> tinhNang;
+        system("cls");
         switch (tinhNang)
         {
         case 1:
-            nhapFile(mangChuaSach);
             hamSearchSach(soLuongSach, mangChuaSach);
             goto nhapLai;
         case 2:
@@ -100,13 +102,17 @@ int main()
 }
 void hoiAdmin(char &chAd)
 {
-    cout << "Ban co phai la admin(y/n)? ";
-    cin.get(chAd);
-    while (chAd != 'y' || chAd != 'n' || chAd != 'Y' || chAd != 'N')
+    bool admin = false;
+    do
     {
-        cout << "Vui long nhap lai! ";
+        cout << "\nBan co phai la admin khong(y/n)? ";
         cin.get(chAd);
-    }
+        if (chAd == 'y' || chAd == 'n' || chAd == 'Y' || chAd == 'N')
+            admin = true;
+        else
+            cout << "Vui long nhap lai! " << endl;
+    } while (admin == false);
+    system("cls");
 }
 
 void dangNhapKyAdmin()
@@ -119,6 +125,7 @@ void dangNhapKyAdmin()
     do
     {
         cout << "\nNhap ten dang nhap: ";
+        cin.ignore();
         cin.getline(username, 99);
         cout << "\nMoi ban nhap mat khau: ";
         cin.getline(nhapPass, 99);
@@ -128,7 +135,7 @@ void dangNhapKyAdmin()
             cout << "\nTai khoan hoac mat khau sai. Vui long nhap lai.";
     } while (quyenAdmin == false);
 }
-void xuatFile(book mangChuaSach[])
+void xuatFile(book a[])
 {
     fstream fout;
     int n;
@@ -136,36 +143,35 @@ void xuatFile(book mangChuaSach[])
     cout << "Nhap thong tin ve sach\n-------------------------------------------------------";
     cout << "\nNhap so luong sach can nhap: ";
     cin >> n;
-    char tenSach[n][50], theLoai[n][50], tacGia[n][50], nxb[n][50];
-    int namPhatHanh[n];
     for (int i = 0; i < n; i++)
     {
         system("cls");
         cout << "Nhap ten sach thu " << i + 1 << ": ";
         cin.ignore();
-        cin.getline(tenSach[i], 49);
+        getline(cin, a[i].tenSach);
         cout << "Nhap ten the loai: ";
-        cin.getline(theLoai[i], 49);
+        getline(cin, a[i].theLoai);
         cout << "Nhap ten tac gia: ";
-        cin.getline(tacGia[i], 49);
+        getline(cin, a[i].tenTacGia);
         cout << "Nhap ten nha xuat ban: ";
-        cin.getline(nxb[i], 49);
-        cout << "Nhap nam phat hanh: ";
-        cin >> namPhatHanh[i];
-        fout << tenSach[i] << "," << theLoai[i] << "," << tacGia[i] << "," << nxb[i] << "," << namPhatHanh[i] << "\n";
+        getline(cin, a[i].nxb);
+        do
+        {
+            cout << "Nhap nam phat hanh: ";
+            cin >> a[i].namPhatHanh;
+        } while (a[i].namPhatHanh < 1);
+        fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << "\n";
     }
     fout.close();
 }
-void nhapFile(book mangChuaSach[])
+void nhapFile(book a[])
 {
     fstream fin;
     fin.open("fileChuaSach.csv", ios::in);
-    string tenSach[100], theLoai[100], tacGia[100], nxb[100];
-    int namPhatHanh[10000];
     int n = 0;
     if (fin.is_open())
     {
-        while (getline(fin, tenSach[n], ',') && getline(fin, theLoai[n], ',') && getline(fin, tacGia[n], ',') && getline(fin, nxb[n], ',') && fin >> namPhatHanh[n])
+        while (getline(fin, a[n].tenSach, ',') && getline(fin, a[n].theLoai, ',') && getline(fin, a[n].tenTacGia, ',') && getline(fin, a[n].nxb, ',') && fin >> a[n].namPhatHanh)
             n++;
         fin.close();
     }
@@ -174,10 +180,12 @@ void nhapFile(book mangChuaSach[])
     int i = 0;
     while (n--)
     {
-        cout << tenSach[i] << "     " << theLoai[i] << "     " << tacGia[i] << "     " << nxb[i] << "     " << namPhatHanh[i];
+        cout << a[i].tenSach << "     " << a[i].theLoai << "     " << a[i].tenTacGia << "     " << a[i].nxb << "     " << a[i].namPhatHanh;
         i++;
     }
 }
+// void xuatFile(bookBorRe b[]);
+// void xuatFile(bookBorRe b[]);
 void inThongTinSach(int n, book mangSach[])
 { // in thông tin sách trong mảng book
     cout << "Thong tin sach: \n";
@@ -188,7 +196,7 @@ void inThongTinSach(int n, book mangSach[])
 void hamSearchSach(int n, book mangSach[])
 {
     int search;
-    cout << "Chon thong tin ban muon tim kiem\n";
+    cout << "\nChon thong tin ban muon tim kiem\n";
     cout << "Ten sach      - chon '1' \n";
     cout << "Ten tac gia   - chon '2' \n";
     cout << "The loai      - chon '3' \n";
@@ -204,6 +212,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
 {
     string data;
     bool checkTimThongTin = false; // tra ve false neu kh tim duoc
+    cin.ignore();
     switch (search)
     {
     case 1:
@@ -214,7 +223,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].tenSach.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
+                cout << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
             }
         }
         if (checkTimThongTin == false)
