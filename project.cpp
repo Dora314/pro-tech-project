@@ -77,13 +77,12 @@ int main()
         switch (tinhNang)
         {
         case 1:
-            hamSearchSach(soLuongSach, mangChuaSach);
+            hamSearchSach(soLuongSach, mangChuaSach); // số lượng sách ở đâu mà chuyển nhỉ
             goto nhapLai;
         case 2:
             xuatFile(mangChuaSach);
             goto nhapLai;
         case 3:
-            // nhapFile(mangMuonTra);
             quanLy(soLuongSach, mangMuonTra);
             goto nhapLai;
         default:
@@ -107,7 +106,8 @@ void hoiAdmin(char &chAd)
     {
         cout << "\nBan co phai la admin khong(y/n)? ";
         cin.get(chAd);
-        if (chAd == 'y' || chAd == 'n' || chAd == 'Y' || chAd == 'N')
+        //tolower(chAd); // chuyển về sang chưu thường
+        if (chAd == 'y' || chAd == 'n'|| chAd == 'Y'|| chAd == 'N')
             admin = true;
         else
             cout << "Vui long nhap lai! " << endl;
@@ -122,6 +122,7 @@ void dangNhapKyAdmin()
     char passMacDinh[] = "LamHandsome";
     char nhapPass[100];
     char userMacDinh[] = "admin";
+    char out;
     do
     {
         cout << "\nNhap ten dang nhap: ";
@@ -133,9 +134,33 @@ void dangNhapKyAdmin()
             quyenAdmin = true;
         else
             cout << "\nTai khoan hoac mat khau sai. Vui long nhap lai.";
+            system ("cls");
+            cout << "Ban co muon roi tinh nang dang nhap khong ? '\n'"; //trường hợp đăng nhập không được, cho out tính năng -> out admin -> chuyển sang chế độ non-admin
+            do{
+                cout << "Chon 'y' hoac 'n' de xac nhan: ";
+                cin.get(out);
+                tolower(out);
+                if (out == 'y'){
+                    break;
+                }
+                else if (out != 'y' || out != 'n'){
+                    cout << "Lua chon khong hop le";
+                }
+                else {
+                    cout << "Dang thoat che do dang nhap Admin...";
+                    break;
+                }
+            }while (out != 'n' || out != 'y' );
+            
+            if (out == 'n'){
+                break;
+            }
+            if (out == 'y'){
+                continue;
+            }
     } while (quyenAdmin == false);
 }
-void xuatFile(book a[])
+void xuatFile(book mangSach[])
 {
     fstream fout;
     int n;
@@ -148,30 +173,30 @@ void xuatFile(book a[])
         system("cls");
         cout << "Nhap ten sach thu " << i + 1 << ": ";
         cin.ignore();
-        getline(cin, a[i].tenSach);
+        getline(cin, mangSach[i].tenSach);
         cout << "Nhap ten the loai: ";
-        getline(cin, a[i].theLoai);
+        getline(cin, mangSach[i].theLoai);
         cout << "Nhap ten tac gia: ";
-        getline(cin, a[i].tenTacGia);
+        getline(cin, mangSach[i].tenTacGia);
         cout << "Nhap ten nha xuat ban: ";
-        getline(cin, a[i].nxb);
+        getline(cin, mangSach[i].nxb);
         do
         {
             cout << "Nhap nam phat hanh: ";
-            cin >> a[i].namPhatHanh;
-        } while (a[i].namPhatHanh < 1);
-        fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << "\n";
+            cin >> mangSach[i].namPhatHanh;
+        } while (mangSach[i].namPhatHanh < 1);
+        fout << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh << "\n";
     }
     fout.close();
 }
-void nhapFile(book a[])
+void nhapFile(book mangSach[])
 {
     fstream fin;
     fin.open("fileChuaSach.csv", ios::in);
     int n = 0;
     if (fin.is_open())
     {
-        while (getline(fin, a[n].tenSach, ',') && getline(fin, a[n].theLoai, ',') && getline(fin, a[n].tenTacGia, ',') && getline(fin, a[n].nxb, ',') && fin >> a[n].namPhatHanh)
+        while (getline(fin,mangSach[n].tenTacGia,',') && getline(fin, mangSach[n].theLoai, ',') && getline(fin, mangSach[n].tenTacGia, ',') && getline(fin, mangSach[n].nxb, ',') && fin >> mangSach[n].namPhatHanh)
             n++;
         fin.close();
     }
@@ -180,8 +205,8 @@ void nhapFile(book a[])
     int i = 0;
     while (n--)
     {
-        cout << left << setw(35) << a[i].tenSach << "\t" << left << setw(15) << a[i].theLoai << setw(30) << a[i].tenTacGia << setw(20) << a[i].nxb << right << setw(5) << a[i].namPhatHanh << endl;
-        i++;
+        cout << left << setw(35) << mangSach[i].tenSach << "\t" << left << setw(15) << mangSach[i].theLoai << setw(30) << mangSach[i].tenTacGia << setw(20) << mangSach[i].nxb << right << setw(5) << mangSach[i].namPhatHanh << endl;
+        i++; 
     }
 }
 // void xuatFile(bookBorRe b[]);
@@ -203,8 +228,16 @@ void hamSearchSach(int n, book mangSach[])
     cout << "Nha xuat ban  - chon '4' \n";
     cout << "Nam phat hanh - chon '5' \n"; // tinh nang lam sau
     cout << "Thoat         - chon '0' \n";
-    cout << "Moi ban chon: ";
-    cin >> search;
+    do {
+        cout << "Moi ban chon: ";
+        cin >> search;
+        if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 ||search == 5){
+            break;
+        }
+        else {
+            cout << "Lua chon khong hop le !\n";
+        }
+    } while (search != 0 || search != 1 || search != 2 || search != 3 || search != 4 ||search != 5);
     searchTheoThongTin(search, n, mangSach);
 }
 
@@ -315,8 +348,17 @@ nhapLai:
     cout << "Ten nguoi muon          - chon '1'\n";
     cout << "Quan ly so luong sach   - chon '2'\n";
     cout << "Quay lai chon tinh nang - chon '0'\n";
-    cout << "Moi ban chon: ";
-    cin >> search;
+    do {
+        cout << "Moi ban chon: ";
+        cin >> search;
+        if (search == 0 || search == 1 || search == 2){
+            break;
+        }
+        else {
+            cout << "Lua chon khong hop le !\n";
+        }
+    } while (search != 0 || search != 1 || search != 2);
+
     switch (search)
     {
     case 1:
@@ -338,8 +380,8 @@ nhapLai:
         getline(cin, data);
         for (int i = 0; i < n; i++)
             if (mangMuonTra[i].sachMuonTra.tenSach.find(data) != string::npos)
-            {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
-                checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
+            {                            
+                checkTimThongTin = true; 
                 cout << mangMuonTra[i].sachMuonTra.tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay.d << "/" << mangMuonTra[i].borDay.m << "/" << mangMuonTra[i].borDay.y << "    " << mangMuonTra[i].reDay.d << "/" << mangMuonTra[i].reDay.m << "/" << mangMuonTra[i].reDay.y << "\n";
             }
         if (checkTimThongTin == false)
@@ -353,4 +395,3 @@ nhapLai:
         goto nhapLai;
     }
 }
-// làm sao để khi quản ly xong exit ra ngoài main(chon tinh nang?) á\/done nhé + và thông tin người mượn ở đâu
