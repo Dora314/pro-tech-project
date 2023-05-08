@@ -42,11 +42,11 @@ struct bookBorRe
     date reDay;       // ngay den han
 };
 void xuatFile(book a[]);
-void nhapFile(book a[]);
+void docFile(book a[]);
 // void xuatFile(bookBorRe b[]);
 // void xuatFile(bookBorRe b[]);
 void hoiAdmin(char &chAd);
-void dangNhapKyAdmin();
+void dangNhapKyAdmin(bool &quyenAdmin);
 void inThongTinSach(int n, book a[]); // a[] la mang chua sach
 void hamSearchSach(int n, book mangSach[]);
 void searchTheoThongTin(int search, int n, book mangSach[]);
@@ -58,37 +58,44 @@ int main()
     book mangChuaSach[5000];
     bookBorRe mangMuonTra[5000];
     int soLuongSach, tinhNang;
+    bool quyenAdmin = false;
+hoiAdmin:
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
-    nhapFile(mangChuaSach);
+    docFile(mangChuaSach);
     switch (chAd)
     {
     case 'y':
     case 'Y':
-        dangNhapKyAdmin();
-    nhapLai:
-        system("cls"); // xoa man hinh giong clrscr trong pascal
-        cout << "\nMoi chon tinh nang\n";
-        cout << "Tim kiem sach              - chon '1' \n";
-        cout << "Nhap sach vao thu vien     - chon '2' \n";
-        cout << "Quan ly muon tra sach      - chon '3' \n";
-        cout << "Xin moi nhap tinh nang theo so: ";
-        cin >> tinhNang;
-        system("cls");
-        switch (tinhNang)
+        dangNhapKyAdmin(quyenAdmin);
+        if (quyenAdmin == true)
         {
-        case 1:
-            hamSearchSach(soLuongSach, mangChuaSach); // số lượng sách ở đâu mà chuyển nhỉ
-            goto nhapLai;
-        case 2:
-            xuatFile(mangChuaSach);
-            goto nhapLai;
-        case 3:
-            quanLy(soLuongSach, mangMuonTra);
-            goto nhapLai;
-        default:
-            cout << "\nVui long nhap lai.\n";
-            goto nhapLai;
+        nhapLai:
+            system("cls"); // xoa man hinh giong clrscr trong pascal
+            cout << "\nMoi chon tinh nang\n";
+            cout << "Tim kiem sach              - chon '1' \n";
+            cout << "Nhap sach vao thu vien     - chon '2' \n";
+            cout << "Quan ly muon tra sach      - chon '3' \n";
+            cout << "Xin moi nhap tinh nang theo so: ";
+            cin >> tinhNang;
+            system("cls");
+            switch (tinhNang)
+            {
+            case 1:
+                hamSearchSach(soLuongSach, mangChuaSach); // số lượng sách ở đâu mà chuyển nhỉ
+                goto nhapLai;
+            case 2:
+                xuatFile(mangChuaSach);
+                goto nhapLai;
+            case 3:
+                quanLy(soLuongSach, mangMuonTra);
+                goto nhapLai;
+            default:
+                cout << "\nVui long nhap lai.\n";
+                goto nhapLai;
+            }
         }
+        else
+            goto hoiAdmin;
     case 'n':
     case 'N':
         hamSearchSach(soLuongSach, mangChuaSach); // non-admin chi duoc tim kiem sach
@@ -106,6 +113,7 @@ void hoiAdmin(char &chAd)
     {
         cout << "\nBan co phai la admin khong(y/n)? ";
         cin.get(chAd);
+        cin.ignore();
         // tolower(chAd); // chuyển về sang chưu thường
         if (chAd == 'y' || chAd == 'n' || chAd == 'Y' || chAd == 'N')
             admin = true;
@@ -115,56 +123,50 @@ void hoiAdmin(char &chAd)
     system("cls");
 }
 
-void dangNhapKyAdmin()
+void dangNhapKyAdmin(bool &quyenAdmin)
 {
-    bool quyenAdmin = false;
     char username[100];
-    char passMacDinh[] = "LamHandsome";
+    char passMacDinh[] = "LamBeauty";
     char nhapPass[100];
     char userMacDinh[] = "admin";
-    char out;
+    char check;
+again:
+    int times = 3;
     do
     {
         cout << "\nNhap ten dang nhap: ";
-        cin.ignore();
         cin.getline(username, 99);
         cout << "\nMoi ban nhap mat khau: ";
         cin.getline(nhapPass, 99);
         if (strcmp(passMacDinh, nhapPass) == 0 && strcmp(userMacDinh, username) == 0)
             quyenAdmin = true;
         else
-            cout << "\nTai khoan hoac mat khau sai. Vui long nhap lai.";
-        system("cls");
-        cout << "Ban co muon roi tinh nang dang nhap khong ? '\n'"; // trường hợp đăng nhập không được, cho out tính năng -> out admin -> chuyển sang chế độ non-admin
-        do
         {
-            cout << "Chon 'y' hoac 'n' de xac nhan: ";
-            cin.get(out);
-            tolower(out);
-            if (out == 'y')
+            times--;
+            cout << "\nTai khoan hoac mat khau sai. Vui long nhap lai.\n";
+            if (times == 0)
             {
-                break;
-            }
-            else if (out != 'y' || out != 'n')
-            {
-                cout << "Lua chon khong hop le";
-            }
-            else
-            {
-                cout << "Dang thoat che do dang nhap Admin...";
-                break;
-            }
-        } while (out != 'n' || out != 'y');
-
-        if (out == 'n')
-        {
-            break;
-        }
-        if (out == 'y')
-        {
-            continue;
+                do
+                {
+                    cout << "\nBan co muon roi tinh nang dang nhap khong(y/n)? ";
+                    cin.get(check);      // j
+                    cin.ignore(1, '\n'); // "\n"
+                    if (check == 'y' || check == 'Y')
+                        goto ended;
+                    else if (check == 'n' || check == 'N')
+                    {
+                        goto again;
+                        system("cls");
+                    }
+                    else
+                        cout << "\nVung long nhap lai.\n";
+                } while (!(check == 'Y' && check == 'N' && check == 'y' && check == 'n'));
+            } // quay ve hoi admin
         }
     } while (quyenAdmin == false);
+ended:
+    cout << "Dang chay...\n";
+    system("cls");
 }
 void xuatFile(book mangSach[])
 {
@@ -195,7 +197,7 @@ void xuatFile(book mangSach[])
     }
     fout.close();
 }
-void nhapFile(book mangSach[])
+void docFile(book mangSach[])
 {
     fstream fin;
     fin.open("fileChuaSach.csv", ios::in);
@@ -208,7 +210,6 @@ void nhapFile(book mangSach[])
     }
     else
         cout << "Error. Vui long khoi dong lai chuong trinh.";
-    inThongTinSach(n, mangSach);
 }
 // void xuatFile(bookBorRe b[]);
 // void xuatFile(bookBorRe b[]);
@@ -249,6 +250,7 @@ void hamSearchSach(int n, book mangSach[])
             cout << "Lua chon khong hop le !\n";
         }
     } while (search != 0 || search != 1 || search != 2 || search != 3 || search != 4 || search != 5);
+    system("cls");
     searchTheoThongTin(search, n, mangSach);
 }
 
