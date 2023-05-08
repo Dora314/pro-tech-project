@@ -106,6 +106,7 @@ void hoiAdmin(char &chAd)
     {
         cout << "\nBan co phai la admin khong(y/n)? ";
         cin.get(chAd);
+        cin.ignore();
         //tolower(chAd); // chuyển về sang chưu thường
         if (chAd == 'y' || chAd == 'n'|| chAd == 'Y'|| chAd == 'N')
             admin = true;
