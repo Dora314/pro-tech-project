@@ -75,6 +75,8 @@ hoiAdmin:
             cout << "Tim kiem sach              - chon '1' \n";
             cout << "Nhap sach vao thu vien     - chon '2' \n";
             cout << "Quan ly muon tra sach      - chon '3' \n";
+            cout << "Thoat                      - chon '0' \n";
+            // xoa sach trong tuong lai
             cout << "Xin moi nhap tinh nang theo so: ";
             cin >> tinhNang;
             system("cls");
@@ -89,6 +91,8 @@ hoiAdmin:
             case 3:
                 quanLy(soLuongSach, mangMuonTra);
                 goto nhapLai;
+            case 0:
+                goto end;
             default:
                 cout << "\nVui long nhap lai.\n";
                 goto nhapLai;
@@ -104,6 +108,9 @@ hoiAdmin:
         cout << "Vui long khoi dong lai chuong trinh.";
         break;
     }
+end:
+    system("cls");
+    cout << "\n\nCam on da su dung chuong trinh!\n\n";
     return 0;
 }
 void hoiAdmin(char &chAd)
@@ -357,9 +364,9 @@ void quanLy(int n, bookBorRe mangMuonTra[])
     string data;
     bool checkTimThongTin = false;
 nhapLai:
-    cout << "\nQuan ly sach: muon tra, so luong sach, xem sach hien co \n";
+    cout << "\nQuan ly sach: nguoi muon tra, sach dang duoc muon, so luong sach\n";
     cout << "Tim theo ten nguoi muon   - chon '1'\n";
-    cout << "Tra cuu so luong sach     - chon '2'\n";
+    cout << "Tra cuu ten sach duoc muon- chon '2'\n";
     cout << "Xem sach hien co          - chon '3'\n";
     cout << "Quay lai chon tinh nang   - chon '0'\n";
     do
