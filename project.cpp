@@ -1,7 +1,8 @@
 // Hệ thống quản lý thư viện bởi team 8
 #include <bits/stdc++.h>
 using namespace std;
-struct book // file chua sach
+#define endl "\n" // gán \n cho endl
+struct book       // file chua sach
 {
     string tenSach;
     string theLoai;
@@ -60,6 +61,7 @@ hoiAdmin:
     {
     case 'y':
     case 'Y':
+    {
         dangNhapKyAdmin(quyenAdmin);
         if (quyenAdmin == true)
         {
@@ -97,19 +99,19 @@ hoiAdmin:
         }
         else
             goto hoiAdmin;
+    }
     case 'n':
     case 'N':
-        int soLuongSach = 0;
-        docFile(soLuongSach, mangChuaSach);
-        hamSearchSach(soLuongSach, mangChuaSach); // non-admin chi duoc tim kiem sach
-        break;
-    default:
-        cout << "Vui long khoi dong lai chuong trinh.";
+        int soSach = 0;
+        docFile(soSach, mangChuaSach);
+        hamSearchSach(soSach, mangChuaSach); // non-admin chi duoc tim kiem sach
+        system("pause");
         break;
     }
 end:
     system("cls");
     cout << "\n\nCam on da su dung chuong trinh!\n\n";
+    system("pause");
     return 0;
 }
 void hoiAdmin(char &chAd)
@@ -275,7 +277,7 @@ void inThongTinMuonTra(int n, bookBorRe b[])
         cout << b[i].tenSach << endl;
         cout << "Ten nguoi muon: " << b[i].borName << endl;
         cout << "Ngay muon: " << b[i].borDay << endl;
-        cout << "Ngay den han: " << b[i].reDay << endl;
+        cout << "Ngay den han: " << b[i].reDay << "\n\n";
     }
 }
 void hamSearchSach(int n, book mangSach[])
@@ -310,6 +312,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
     string data;
     bool checkTimThongTin = false; // tra ve false neu kh tim duoc
     cin.ignore();
+    cout << endl;
     switch (search)
     {
     case 1:
@@ -324,7 +327,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].tenSach.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
-                cout << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
+                cout << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
@@ -342,7 +345,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].tenTacGia.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
@@ -361,7 +364,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].theLoai.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
@@ -381,7 +384,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].nxb.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
@@ -401,7 +404,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].namPhatHanh == year)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << '\n';
+                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
@@ -455,7 +458,7 @@ nhapLai:
             if (mangMuonTra[i].tenSach.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
-                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay << "    " << mangMuonTra[i].reDay << endl;
+                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay << "    " << mangMuonTra[i].reDay << "\n\n";
             }
         }
         if (checkTimThongTin == false)
@@ -472,7 +475,7 @@ nhapLai:
             if (mangMuonTra[i].borName.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay << "    " << mangMuonTra[i].reDay << endl;
+                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay << "    " << mangMuonTra[i].reDay << "\n\n";
             }
         }
         if (checkTimThongTin == false)
