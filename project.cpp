@@ -7,7 +7,7 @@ struct date
     int m;
     int y;
 };
-struct book
+struct book // file chua sach
 {
     string tenSach;
     string theLoai;
@@ -34,17 +34,17 @@ struct book
         return inputInfo;
     }
 };
-struct bookBorRe
+struct bookBorRe // file quan ly
 {
-    book sachMuonTra; // lay ten sach
-    string borName;   // ten nguoi muon
-    date borDay;      // ngay muon
-    date reDay;       // ngay den han
+    string tenSach; // lay ten sach
+    string borName; // ten nguoi muon
+    date borDay;    // ngay muon
+    date reDay;     // ngay den han
 };
 void xuatFile(book a[]);
 void docFile(book a[]);
-// void xuatFile(bookBorRe b[]);
-// void xuatFile(bookBorRe b[]);
+void xuatFile2(bookBorRe b[]);
+void docFile2(bookBorRe b[]);
 void hoiAdmin(char &chAd);
 void dangNhapKyAdmin(bool &quyenAdmin);
 void inThongTinSach(int n, book a[]); // a[] la mang chua sach
@@ -61,7 +61,6 @@ int main()
     bool quyenAdmin = false;
 hoiAdmin:
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
-    docFile(mangChuaSach);
     switch (chAd)
     {
     case 'y':
@@ -74,7 +73,7 @@ hoiAdmin:
             cout << "\nMoi chon tinh nang\n";
             cout << "Tim kiem sach              - chon '1' \n";
             cout << "Nhap sach vao thu vien     - chon '2' \n";
-            cout << "Quan ly muon tra sach      - chon '3' \n";
+            cout << "Quan ly sach      - chon '3' \n";
             cout << "Thoat                      - chon '0' \n";
             // xoa sach trong tuong lai
             cout << "Xin moi nhap tinh nang theo so: ";
@@ -83,12 +82,15 @@ hoiAdmin:
             switch (tinhNang)
             {
             case 1:
+                docFile(mangChuaSach);
                 hamSearchSach(soLuongSach, mangChuaSach); // số lượng sách ở đâu mà chuyển nhỉ
                 goto nhapLai;
             case 2:
+                docFile(mangChuaSach);
                 xuatFile(mangChuaSach);
                 goto nhapLai;
             case 3:
+                docFile2(mangMuonTra);
                 quanLy(soLuongSach, mangMuonTra);
                 goto nhapLai;
             case 0:
@@ -218,8 +220,49 @@ void docFile(book mangSach[])
     else
         cout << "Error. Vui long khoi dong lai chuong trinh.";
 }
-// void xuatFile(bookBorRe b[]);
-// void xuatFile(bookBorRe b[]);
+/*void xuatFile2(bookBorRe b[])
+{
+    fstream fout;
+    int n;
+    fout.open("fileQuanLy.csv", ios::out | ios::app);
+    cout << "Nhap thong ve sach cho muon\n-------------------------------------------------------";
+    cout << "\nNhap so luong sach can nhap: ";
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        system("cls");
+        cout << "Nhap ten sach thu " << i + 1 << ": ";
+        cin.ignore();
+        getline(cin, b[i].tenSach);
+        cout << "Nhap ten nguoi muon: ";
+        getline(cin, b[i].borName);
+        cout << "Nhap ngay muon ";
+        getline(cin, mangSach[i].tenTacGia);
+        cout << "Nhap ten nha xuat ban: ";
+        getline(cin, mangSach[i].nxb);
+        do
+        {
+            cout << "Nhap nam phat hanh: ";
+            cin >> mangSach[i].namPhatHanh;
+        } while (mangSach[i].namPhatHanh < 1);
+        fout << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh << "\n";
+    }
+    fout.close();
+}*/
+void docFile2(bookBorRe b[])
+{
+    fstream fin;
+    fin.open("fileQuanLy.csv", ios::in);
+    int n = 0;
+    if (fin.is_open())
+    {
+        while (getline(fin, b[n].tenSach, ',') && getline(fin, b[n].borName, ',') && fin >> b[n].borDay.d && fin >> b[n].borDay.m && fin >> b[n].borDay.y && fin >> b[n].reDay.d && fin >> b[n].reDay.m && fin >> b[n].reDay.y)
+            n++;
+        fin.close();
+    }
+    else
+        cout << "Error. Vui long khoi dong lai chuong trinh.";
+}
 void inThongTinSach(int n, book a[])
 { // in thông tin sách trong mảng book
     cout << "Thong tin sach hien co:" << endl;
@@ -271,8 +314,12 @@ void searchTheoThongTin(int search, int n, book mangSach[])
     case 1:
         cout << "Moi ban nhap ten sach: ";
         getline(cin, data);
+
+        // hàm transform
+        transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
         for (int i = 0; i < n; i++)
         {
+            transform(mangSach[i].tenSach.begin(), mangSach[i].tenSach.end(), mangSach[i].tenSach.begin(), ::tolower);
             if (mangSach[i].tenSach.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
@@ -287,8 +334,10 @@ void searchTheoThongTin(int search, int n, book mangSach[])
     case 2:
         cout << "Moi ban nhap ten tac gia: ";
         getline(cin, data);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
         for (int i = 0; i < n; i++)
         {
+            transform(mangSach[i].tenTacGia.begin(), mangSach[i].tenTacGia.end(), mangSach[i].tenTacGia.begin(), ::tolower);
             if (mangSach[i].tenTacGia.find(data) != string::npos)
             {
                 checkTimThongTin = true;
@@ -303,8 +352,11 @@ void searchTheoThongTin(int search, int n, book mangSach[])
     case 3:
         cout << "Moi ban nhap the loai: ";
         getline(cin, data);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+
         for (int i = 0; i < n; i++)
         {
+            transform(mangSach[i].theLoai.begin(), mangSach[i].theLoai.end(), mangSach[i].theLoai.begin(), ::tolower);
             if (mangSach[i].theLoai.find(data) != string::npos)
             {
                 checkTimThongTin = true;
@@ -319,8 +371,12 @@ void searchTheoThongTin(int search, int n, book mangSach[])
     case 4:
         cout << "Moi ban nhap nha xuat ban : ";
         getline(cin, data);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+
         for (int i = 0; i < n; i++)
         {
+            transform(mangSach[i].nxb.begin(), mangSach[i].nxb.end(), mangSach[i].nxb.begin(), ::tolower);
+
             if (mangSach[i].nxb.find(data) != string::npos)
             {
                 checkTimThongTin = true;
@@ -393,7 +449,7 @@ nhapLai:
             if (mangMuonTra[i].borName.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenNguoiMuon -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenNguoiMuon trùng với data
-                cout << mangMuonTra[i].sachMuonTra.tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay.d << "/" << mangMuonTra[i].borDay.m << "/" << mangMuonTra[i].borDay.y << "    " << mangMuonTra[i].reDay.d << "/" << mangMuonTra[i].reDay.m << "/" << mangMuonTra[i].reDay.y << "\n";
+                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay.d << "/" << mangMuonTra[i].borDay.m << "/" << mangMuonTra[i].borDay.y << "    " << mangMuonTra[i].reDay.d << "/" << mangMuonTra[i].reDay.m << "/" << mangMuonTra[i].reDay.y << "\n";
             }
         if (checkTimThongTin == false)
             cout << "Khong tim thay nguoi muon sach !";
@@ -403,14 +459,16 @@ nhapLai:
         cin.ignore();
         getline(cin, data);
         for (int i = 0; i < n; i++)
-            if (mangMuonTra[i].sachMuonTra.tenSach.find(data) != string::npos)
+            if (mangMuonTra[i].tenSach.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << mangMuonTra[i].sachMuonTra.tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay.d << "/" << mangMuonTra[i].borDay.m << "/" << mangMuonTra[i].borDay.y << "    " << mangMuonTra[i].reDay.d << "/" << mangMuonTra[i].reDay.m << "/" << mangMuonTra[i].reDay.y << "\n";
+                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay.d << "/" << mangMuonTra[i].borDay.m << "/" << mangMuonTra[i].borDay.y << "    " << mangMuonTra[i].reDay.d << "/" << mangMuonTra[i].reDay.m << "/" << mangMuonTra[i].reDay.y << "\n";
             }
         if (checkTimThongTin == false)
             cout << "Sach khong co trong thu vien !";
         goto nhapLai;
+    case 3:
+    // cout << "So luong sach hien co la " << soSach << " cuon sach!";
     case 0:
         cout << "Dang tro lai chon tinh nang...";
         break;
