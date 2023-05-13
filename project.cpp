@@ -312,14 +312,12 @@ void searchTheoThongTin(int search, int n, book mangSach[])
     string data;
     bool checkTimThongTin = false; // tra ve false neu kh tim duoc
     cin.ignore();
-    cout << endl;
     switch (search)
     {
     case 1:
         cout << "Moi ban nhap ten sach: ";
         getline(cin, data);
-
-        // hàm transform
+        cout << endl;
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
         for (int i = 0; i < n; i++)
         {
@@ -327,17 +325,21 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].tenSach.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
-                cout << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
+                cout << mangSach[i].tenSach << endl;
+                cout << "Ten tac gia: " << mangSach[i].tenTacGia << endl;
+                cout << "The loai: " << mangSach[i].theLoai << endl;
+                cout << "Nha xuat ban: " << mangSach[i].nxb << endl;
+                cout << "Nam phat hanh: " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
-        {
-            cout << "Sach khong co trong thu vien !";
-        }
+            cout << "Sach khong co trong thu vien !\n";
+        system("pause");
         break;
     case 2:
         cout << "Moi ban nhap ten tac gia: ";
         getline(cin, data);
+        cout << endl;
         transform(data.begin(), data.end(), data.begin(), ::tolower);
         for (int i = 0; i < n; i++)
         {
@@ -345,38 +347,44 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].tenTacGia.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
+                cout << mangSach[i].tenSach << endl;
+                cout << "Ten tac gia: " << mangSach[i].tenTacGia << endl;
+                cout << "The loai: " << mangSach[i].theLoai << endl;
+                cout << "Nha xuat ban: " << mangSach[i].nxb << endl;
+                cout << "Nam phat hanh: " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
-        {
-            cout << "Sach cua tac gia nay hien chua co trong thu vien !";
-        }
+            cout << "Sach cua tac gia nay hien chua co trong thu vien !\n";
+        system("pause");
         break;
     case 3:
         cout << "Moi ban nhap the loai: ";
         getline(cin, data);
+        cout << endl;
         transform(data.begin(), data.end(), data.begin(), ::tolower);
-
         for (int i = 0; i < n; i++)
         {
             transform(mangSach[i].theLoai.begin(), mangSach[i].theLoai.end(), mangSach[i].theLoai.begin(), ::tolower);
             if (mangSach[i].theLoai.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
+                cout << mangSach[i].tenSach << endl;
+                cout << "Ten tac gia: " << mangSach[i].tenTacGia << endl;
+                cout << "The loai: " << mangSach[i].theLoai << endl;
+                cout << "Nha xuat ban: " << mangSach[i].nxb << endl;
+                cout << "Nam phat hanh: " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
-        {
-            cout << "The loai khong co trong thu vien!";
-        }
+            cout << "The loai khong co trong thu vien!\n";
+        system("pause");
         break;
     case 4:
         cout << "Moi ban nhap nha xuat ban : ";
         getline(cin, data);
+        cout << endl;
         transform(data.begin(), data.end(), data.begin(), ::tolower);
-
         for (int i = 0; i < n; i++)
         {
             transform(mangSach[i].nxb.begin(), mangSach[i].nxb.end(), mangSach[i].nxb.begin(), ::tolower);
@@ -384,13 +392,16 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             if (mangSach[i].nxb.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
+                cout << mangSach[i].tenSach << endl;
+                cout << "Ten tac gia: " << mangSach[i].tenTacGia << endl;
+                cout << "The loai: " << mangSach[i].theLoai << endl;
+                cout << "Nha xuat ban: " << mangSach[i].nxb << endl;
+                cout << "Nam phat hanh: " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
-        {
-            cout << "Nha xuat ban sach nay khong co trong thu vien !";
-        }
+            cout << "Nha xuat ban sach nay khong co trong thu vien !\n";
+        system("pause");
         break;
     case 5:
         int year;
@@ -399,18 +410,22 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             cout << "Moi ban nhap nam xuat ban : ";
             cin >> year;
         } while (year < 1);
+        cout << endl;
         for (int i = 0; i < n; i++)
         {
             if (mangSach[i].namPhatHanh == year)
             {
                 checkTimThongTin = true;
-                cout << " " << mangSach[i].tenSach << " " << mangSach[i].tenTacGia << " " << mangSach[i].theLoai << " " << mangSach[i].nxb << " " << mangSach[i].namPhatHanh << "\n\n";
+                cout << mangSach[i].tenSach << endl;
+                cout << "Ten tac gia: " << mangSach[i].tenTacGia << endl;
+                cout << "The loai: " << mangSach[i].theLoai << endl;
+                cout << "Nha xuat ban: " << mangSach[i].nxb << endl;
+                cout << "Nam phat hanh: " << mangSach[i].namPhatHanh << "\n\n";
             }
         }
         if (checkTimThongTin == false)
-        {
-            cout << "Thu vien hien khong co sach cua nam nay !";
-        }
+            cout << "Thu vien hien khong co sach cua nam nay !\n";
+        system("pause");
         break;
     default:
         cout << "Lua chon cua ban khong hop le !!!";
@@ -424,6 +439,7 @@ void quanLy(int n, book mangChuaSach[], int n1, bookBorRe mangMuonTra[])
     string data;
     bool checkTimThongTin = false;
 nhapLai:
+    system("cls");
     cout << "\nQuan ly sach: nguoi muon tra, sach dang duoc muon, so luong sach\n";
     cout << "Tra cuu muon tra theo ten sach  - chon '1'\n";
     cout << "Tra cuu muon tra theo ten       - chon '2'\n";
@@ -443,13 +459,14 @@ nhapLai:
             cout << "Lua chon khong hop le !\n";
         }
     } while (search != 0 || search != 1 || search != 2);
+    cin.ignore();
     system("cls");
     switch (search)
     {
     case 1:
         cout << "Moi ban nhap ten sach: ";
         getline(cin, data);
-
+        cout << endl;
         // hàm transform
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
         for (int i = 0; i < n1; i++)
@@ -458,16 +475,20 @@ nhapLai:
             if (mangMuonTra[i].tenSach.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
-                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay << "    " << mangMuonTra[i].reDay << "\n\n";
+                cout << mangMuonTra[i].tenSach << endl;
+                cout << "Ten nguoi muon: " << mangMuonTra[i].borName << endl;
+                cout << "Ngay muon: " << mangMuonTra[i].borDay << endl;
+                cout << "Ngay den han: " << mangMuonTra[i].reDay << "\n\n";
             }
         }
         if (checkTimThongTin == false)
-            cout << "Quyen sach nay van chua duoc muon !";
+            cout << "Quyen sach nay van chua duoc muon !\n";
+        system("pause");
         goto nhapLai;
     case 2:
         cout << "Moi ban nhap ten nguoi muon: ";
         getline(cin, data);
-        // hàm transform
+        cout << endl;
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
         for (int i = 0; i < n1; i++)
         {
@@ -475,11 +496,15 @@ nhapLai:
             if (mangMuonTra[i].borName.find(data) != string::npos)
             {
                 checkTimThongTin = true;
-                cout << mangMuonTra[i].tenSach << "    " << mangMuonTra[i].borName << "    " << mangMuonTra[i].borDay << "    " << mangMuonTra[i].reDay << "\n\n";
+                cout << mangMuonTra[i].tenSach << endl;
+                cout << "Ten nguoi muon: " << mangMuonTra[i].borName << endl;
+                cout << "Ngay muon: " << mangMuonTra[i].borDay << endl;
+                cout << "Ngay den han: " << mangMuonTra[i].reDay << "\n\n";
             }
         }
         if (checkTimThongTin == false)
-            cout << "Khong tim thay ten nguoi muon !";
+            cout << "Khong tim thay ten nguoi muon !\n";
+        system("pause");
         goto nhapLai;
     case 3:
         cout << "So luong sach hien co la " << n << endl;
