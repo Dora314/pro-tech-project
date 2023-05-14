@@ -155,7 +155,7 @@ again:
         }
     } while (quyenAdmin == false);
 ended:
-    cout << "Dang chay...\n";
+    cout << "\nDang chay...\n\n";
     system("cls");
 }
 void xuatFile(book mangSach[])
@@ -211,8 +211,6 @@ void xuatFile2(bookBorRe b[])
     cin.ignore();
     time_t now = time(0); // lay thoi gian hien tai
     tm *ltm = localtime(&now);
-    time_t re = time(0) + 30 * 24 * 3600; // cho phep muon 30 ngay
-    tm *ltmRe = localtime(&re);
     for (int i = 0; i < n; i++)
     {
         system("cls");
@@ -220,7 +218,7 @@ void xuatFile2(bookBorRe b[])
         getline(cin, b[i].tenSach);
         cout << "Nhap ten nguoi muon: ";
         getline(cin, b[i].borName);
-        fout << b[i].tenSach << "," << b[i].borName << "," << ltm->tm_mday << "-" << ltm->tm_mon << "-" << 1900 + ltm->tm_year << "," << ltmRe->tm_mday << "-" << 1 + ltmRe->tm_mon << "-" << 1900 + ltmRe->tm_year << endl;
+        fout << b[i].tenSach << "," << b[i].borName << "," << ltm->tm_mday << "-" << 1 + ltm->tm_mon << "-" << 1900 + ltm->tm_year << "," << ltm->tm_mday << "-" << 2 + ltm->tm_mon << "-" << 1900 + ltm->tm_year << endl;
     }
     fout.close();
 }
@@ -277,13 +275,9 @@ void hamSearchSach(int n, book mangSach[])
         cout << "Moi ban chon: ";
         cin >> search;
         if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5)
-        {
             break;
-        }
         else
-        {
-            cout << "Lua chon khong hop le !\n";
-        }
+            cout << "Lua chon khong hop le!!!\n\n";
     } while (search != 0 || search != 1 || search != 2 || search != 3 || search != 4 || search != 5);
     system("cls");
     searchTheoThongTin(search, n, mangSach);
@@ -409,8 +403,8 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             cout << "Thu vien hien khong co sach cua nam nay !\n";
         system("pause");
         break;
-    default:
-        cout << "Lua chon cua ban khong hop le !!!";
+    case 0:
+        cout << "Dang thoat chuong trinh....\n\n";
         break;
     }
 }
@@ -433,14 +427,10 @@ nhapLai:
     {
         cout << "Moi ban chon: ";
         cin >> search;
-        if (search == 0 || search == 1 || search == 2)
-        {
+        if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5)
             break;
-        }
         else
-        {
             cout << "Lua chon khong hop le !\n";
-        }
     } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5));
     cin.ignore();
     system("cls");
@@ -513,10 +503,10 @@ nhapLai:
         xuatFile2(mangMuonTra);
         goto nhapLai;
     case 0:
-        cout << "Dang tro lai chon tinh nang...";
+        cout << "\nDang tro lai chon tinh nang...\n";
         break;
     default:
-        cout << "Lua chon khong hop le. Vui long chon lai.";
+        cout << "\nLua chon khong hop le. Vui long chon lai.\n";
         goto nhapLai;
     }
 }
