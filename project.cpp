@@ -21,7 +21,7 @@ void xuatFile();
 void docFile(int &n, book a[]);
 void xuatFile2();
 void docFile2(int &n, bookBorRe b[]);
-void hoiAdmin(char &chAd);
+void hoiAdmin(int &chAd);
 void dangNhapKyAdmin(bool &quyenAdmin);
 void inThongTinSach(int n, book a[]);         // a[] la mang chua sach
 void inThongTinMuonTra(int n, bookBorRe b[]); // b[] la mang muon tra
@@ -31,7 +31,7 @@ void quanLy(int n, book mangChuaSach[], int n1, bookBorRe mangMuonTra[]);
 
 int main()
 {
-    char chAd;
+    int chAd;
     book mangChuaSach[5000];
     bookBorRe mangMuonTra[5000];
     int tinhNang;
@@ -42,8 +42,7 @@ hoiAdmin:
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
     switch (chAd)
     {
-    case 'y':
-    case 'Y':
+    case 1:
     {
         dangNhapKyAdmin(quyenAdmin);
         if (quyenAdmin == true)
@@ -79,35 +78,55 @@ hoiAdmin:
                 goto end;
             default:
                 cout << "\nVui long nhap lai.\n";
+                system("pause");
                 goto nhapLai;
             }
         }
         else
             goto hoiAdmin;
     }
-    case 'n':
-    case 'N':
-        int soSach = 0;
-        docFile(soSach, mangChuaSach);
-        hamSearchSach(soSach, mangChuaSach); // non-admin chi duoc tim kiem sach
-        system("pause");
-        break;
+    case 0:
+    {
+        nhapLai1:
+        system("cls"); // xoa man hinh giong clrscr trong pascal
+        cout << "\nMOI CHON TINH NANG\n";
+        cout << "Tim kiem sach       - chon '1' \n";
+        cout << "Thoat               - chon '0' \n";
+        cout << "Xin moi nhap tinh nang theo so: ";
+        cin >> tinhNang;
+        system("cls");
+        switch (tinhNang)
+        {
+        case 1:
+            {
+            int soSach = 0;
+            docFile(soSach, mangChuaSach);
+            hamSearchSach(soSach, mangChuaSach); // non-admin chi duoc tim kiem sach
+            goto nhapLai1;
+            }
+        case 0:
+            goto end;
+        default:
+            cout << "\n\nVui long nhap lai!\n\n";
+            system("pause");
+            goto nhapLai1;
+        }
     }
+}
 end:
     system("cls");
     cout << "\n\nCam on da su dung chuong trinh! Xin chao va hen gap lai!\n_____________________________________\n\n";
     system("pause");
     return 0;
 }
-void hoiAdmin(char &chAd)
+void hoiAdmin(int &chAd)
 {
     bool admin = false;
     do
     {
-        cout << "\nBan co phai la admin khong (Y/N)? ";
-        cin.get(chAd);
-        cin.ignore();
-        if (chAd == 'y' || chAd == 'n' || chAd == 'Y' || chAd == 'N')
+        cout << "\nBan co phai la admin khong (Nhap 1 = CO, 0 = KHONG)? ";
+        cin >> chAd;
+        if (chAd == 1 || chAd == 0)
             admin = true;
         else
             cout << "Vui long nhap lai! " << endl;
@@ -118,10 +137,11 @@ void hoiAdmin(char &chAd)
 void dangNhapKyAdmin(bool &quyenAdmin)
 {
     char username[100];
-    char passMacDinh[] = "adminqltv8";
     char nhapPass[100];
-    char userMacDinh[] = "admintv";
-    char check;
+    char userMacDinh[] = "admin";
+    char passMacDinh[] = "LamBeauty";
+    int check;
+    cin.ignore(1);
 again:
     int times = 3;
     do
@@ -140,20 +160,18 @@ again:
             {
                 do
                 {
-                    cout << "\nBan co muon roi tinh nang dang nhap khong (Y/N)? ";
-                    cin.get(check);
-                    // cin.ignore(1, '\n'); // "\n"
-                    cin.ignore ();
-                    if (check == 'y' || check == 'Y')
+                    cout << "\nBan co muon roi tinh nang dang nhap khong (Nhap 1 = CO, 0 = KHONG)? ";
+                    cin >> check;
+                    if (check == 1)
                         goto ended;
-                    else if (check == 'n' || check == 'N')
+                    else if (check == 0)
                     {
                         goto again;
                         system("cls");
                     }
                     else
                         cout << "\nVui long nhap lai.\n";
-                } while (!(check == 'Y' && check == 'N' && check == 'y' && check == 'n'));
+                } while (!(check == 0 && check == 1));
             } // quay ve hoi admin
         }
     } while (quyenAdmin == false);
