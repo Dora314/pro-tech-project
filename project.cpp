@@ -9,25 +9,6 @@ struct book       // file chua sach
     string tenTacGia;
     string nxb;
     int namPhatHanh; // check year
-
-    friend istream &operator>>(istream &inputInfo, book &thongTin)
-    { // phải có tham chiếu & đề thay đổi biến
-        cout << "Nhap ten sach: ";
-        inputInfo >> thongTin.tenSach;
-        cout << "Nhap the loai sach: ";
-        inputInfo >> thongTin.theLoai;
-        cout << "Nhap ten tac gia: ";
-        inputInfo >> thongTin.tenTacGia;
-        cout << "Nhap nha xuat ban: ";
-        inputInfo >> thongTin.nxb;
-        do
-        {
-            cout << "Nhap nam phat hanh: ";
-            inputInfo >> thongTin.namPhatHanh;
-        } while (thongTin.namPhatHanh < 1);
-        cout << "                   " << '\n';
-        return inputInfo;
-    }
 };
 struct bookBorRe // file quan ly
 {
@@ -226,19 +207,19 @@ void xuatFile2(bookBorRe b[])
     cout << "Nhap thong ve sach cho muon\n-------------------------------------------------------";
     cout << "\nNhap so luong sach can nhap: ";
     cin >> n;
-    time_t now = time(0);             // lay gia tri ngay hien tai
-    tm *ltm = localtime(&now);        // gan gia tri cho con tro kieu cau truc time(gom ngay, thang, nam,...)
-    time_t re = now + 30 * 24 * 3600; // ngay tra = gia tri cua ngay hien tai cong voi so giay cua 30 ngay
+    cin.ignore();
+    time_t now = time(0); // lay thoi gian hien tai
+    tm *ltm = localtime(&now);
+    time_t re = time(0) + 30 * 24 * 3600; // cho phep muon 30 ngay
     tm *ltmRe = localtime(&re);
     for (int i = 0; i < n; i++)
     {
         system("cls");
         cout << "Nhap ten sach thu " << i + 1 << ": ";
-        cin.ignore();
         getline(cin, b[i].tenSach);
         cout << "Nhap ten nguoi muon: ";
         getline(cin, b[i].borName);
-        fout << b[i].tenSach << "," << b[i].borName << "," << ltm->tm_mday << "-" << 1 + ltm->tm_mon << "-" << 1900 + ltm->tm_year << "," << ltmRe->tm_mday << "-" << 1 + ltmRe->tm_mon << "-" << 1900 + ltmRe->tm_year << endl;
+        fout << b[i].tenSach << "," << b[i].borName << "," << ltm->tm_mday << "-" << ltm->tm_mon << "-" << 1900 + ltm->tm_year << "," << ltmRe->tm_mday << "-" << 1 + ltmRe->tm_mon << "-" << 1900 + ltmRe->tm_year << endl;
     }
     fout.close();
 }
@@ -257,7 +238,7 @@ void docFile2(int &n1, bookBorRe b[])
 }
 void inThongTinSach(int n, book a[])
 { // in thông tin sách trong mảng book
-    cout << "Thong tin sach hien co" << endl;
+    cout << "Thong tin sach hien co\n---------------------------------------" << endl;
     cout << endl;
     for (int i = 0; i < n; i++)
     {
@@ -270,7 +251,7 @@ void inThongTinSach(int n, book a[])
 }
 void inThongTinMuonTra(int n, bookBorRe b[])
 { // in thông tin sách trong mảng book
-    cout << "Thong tin sach hien co" << endl;
+    cout << "Thong tin sach hien co\n---------------------------------------" << endl;
     cout << endl;
     for (int i = 0; i < n; i++)
     {
@@ -445,6 +426,7 @@ nhapLai:
     cout << "Tra cuu muon tra theo ten       - chon '2'\n";
     cout << "Thong tin sach hien co          - chon '3'\n";
     cout << "Thong tin sach dang duoc muon   - chon '4'\n";
+    cout << "Them nguoi muon sach            - chon '5'\n";
     cout << "Quay lai chon tinh nang         - chon '0'\n";
     do
     {
@@ -458,7 +440,7 @@ nhapLai:
         {
             cout << "Lua chon khong hop le !\n";
         }
-    } while (search != 0 || search != 1 || search != 2);
+    } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5));
     cin.ignore();
     system("cls");
     switch (search)
@@ -525,6 +507,9 @@ nhapLai:
     case 4:
         inThongTinMuonTra(n1, mangMuonTra);
         system("pause");
+        goto nhapLai;
+    case 5:
+        xuatFile2(mangMuonTra);
         goto nhapLai;
     case 0:
         cout << "Dang tro lai chon tinh nang...";
