@@ -276,13 +276,9 @@ void hamSearchSach(int n, book mangSach[])
         cout << "Moi ban chon: ";
         cin >> search;
         if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5)
-        {
             break;
-        }
         else
-        {
-            cout << "Lua chon khong hop le !\n";
-        }
+            cout << "Lua chon khong hop le!!!\n\n";
     } while (search != 0 || search != 1 || search != 2 || search != 3 || search != 4 || search != 5);
     system("cls");
     searchTheoThongTin(search, n, mangSach);
@@ -408,8 +404,8 @@ void searchTheoThongTin(int search, int n, book mangSach[])
             cout << "Thu vien hien khong co sach cua nam nay !\n";
         system("pause");
         break;
-    default:
-        cout << "Lua chon cua ban khong hop le !!!";
+    case 0:
+        cout << "Dang thoat chuong trinh....\n\n";
         break;
     }
 }
@@ -432,14 +428,10 @@ nhapLai:
     {
         cout << "Moi ban chon: ";
         cin >> search;
-        if (search == 0 || search == 1 || search == 2)
-        {
+        if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5)
             break;
-        }
         else
-        {
             cout << "Lua chon khong hop le !\n";
-        }
     } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5));
     cin.ignore();
     system("cls");
