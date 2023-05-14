@@ -36,6 +36,7 @@ int main()
     bookBorRe mangMuonTra[5000];
     int tinhNang;
     bool quyenAdmin = false;
+    cout << "Chao mung den voi du an quan ly thu vien cua team 8\n";
 hoiAdmin:
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
     switch (chAd)
@@ -304,7 +305,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
         {
             transform(mangSach[i].tenSach.begin(), mangSach[i].tenSach.end(), mangSach[i].tenSach.begin(), ::tolower);
             if (mangSach[i].tenSach.find(data) != string::npos)
-            {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
+            {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên //data = ora (0123) -> doraemon (01234567 ->8)         find(oea)
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
                 cout << mangSach[i].tenSach << endl;
                 cout << "Ten tac gia: " << mangSach[i].tenTacGia << endl;
