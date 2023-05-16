@@ -57,7 +57,7 @@ hoiAdmin:
             // xoa sach trong tuong lai
             cout << "Xin moi nhap tinh nang theo so: ";
             cin >> tinhNang;
-            int soLuongSach = 0, soLuongSach1 = 0;
+            int soLuongSach = 0, soLuongSachMuon = 0;
             
             system("cls");
             switch (tinhNang)
@@ -71,8 +71,8 @@ hoiAdmin:
                 goto nhapLai;
             case 3:
                 docFile(soLuongSach, mangChuaSach);
-                docFile2(soLuongSach1, mangMuonTra);
-                quanLy(soLuongSach, mangChuaSach, soLuongSach1, mangMuonTra);
+                docFile2(soLuongSachMuon, mangMuonTra);
+                quanLy(soLuongSach, mangChuaSach, soLuongSachMuon, mangMuonTra);
                 goto nhapLai;
             case 0:
                 goto end;
@@ -432,7 +432,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
     }
 }
 
-void quanLy(int n, book mangChuaSach[], int n1, bookBorRe mangMuonTra[])
+void quanLy(int n, book mangChuaSach[], int soLuongSachMuon, bookBorRe mangMuonTra[])
 {
     int search;
     string data;
@@ -465,7 +465,7 @@ nhapLai:
         cout << endl;
         // hàm transform
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
-        for (int i = 0; i < n1; i++)
+        for (int i = 0; i < soLuongSachMuon; i++)
         {
             transform(mangMuonTra[i].tenSach.begin(), mangMuonTra[i].tenSach.end(), mangMuonTra[i].tenSach.begin(), ::tolower);
             if (mangMuonTra[i].tenSach.find(data) != string::npos)
@@ -486,7 +486,7 @@ nhapLai:
         getline(cin, data);
         cout << endl;
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
-        for (int i = 0; i < n1; i++)
+        for (int i = 0; i < soLuongSachMuon; i++)
         {
             transform(mangMuonTra[i].borName.begin(), mangMuonTra[i].borName.end(), mangMuonTra[i].borName.begin(), ::tolower);
             if (mangMuonTra[i].borName.find(data) != string::npos)
@@ -516,7 +516,7 @@ nhapLai:
         system("pause");
         goto nhapLai;
     case 4:
-        cout << "So luong sach hien dang duoc muon la " << n1 << endl;
+        cout << "So luong sach hien dang duoc muon la " << soLuongSachMuon << endl;
         do
         {
             cout << "In tat ca thong tin ve sach hien co (Nhap 1 = CO, 0 = KHONG)? ";
@@ -525,7 +525,7 @@ nhapLai:
                 cout << "Vui long nhap lai!" << endl;
         } while (!(search == 1 || search == 0));
         if (search == 1)
-            inThongTinMuonTra(n1, mangMuonTra);
+            inThongTinMuonTra(soLuongSachMuon, mangMuonTra);
         system("pause");
         goto nhapLai;
     case 5:
