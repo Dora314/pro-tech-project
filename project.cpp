@@ -317,7 +317,7 @@ void hamSearchSach(int n, book mangSach[])
 
 void searchTheoThongTin(int search, int n, book mangSach[])
 {
-    string data;
+    string data, temp;
     bool checkTimThongTin = false; // tra ve false neu kh tim duoc
     cin.ignore();
     switch (search)
@@ -329,8 +329,9 @@ void searchTheoThongTin(int search, int n, book mangSach[])
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
         for (int i = 0; i < n; i++)
         {
-            transform(mangSach[i].tenSach.begin(), mangSach[i].tenSach.end(), mangSach[i].tenSach.begin(), ::tolower);
-            if (mangSach[i].tenSach.find(data) != string::npos)
+            temp = mangSach[i].tenSach; // dung temp giup du lieu khong bi thay doi
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên //data = ora (0123) -> doraemon (01234567 ->8)         find(oea)
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
                 inSach(i, mangSach);
@@ -347,8 +348,9 @@ void searchTheoThongTin(int search, int n, book mangSach[])
         transform(data.begin(), data.end(), data.begin(), ::tolower);
         for (int i = 0; i < n; i++)
         {
-            transform(mangSach[i].theLoai.begin(), mangSach[i].theLoai.end(), mangSach[i].theLoai.begin(), ::tolower);
-            if (mangSach[i].theLoai.find(data) != string::npos)
+            temp = mangSach[i].theLoai;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp.find(data) != string::npos)
             {
                 checkTimThongTin = true;
                 inSach(i, mangSach);
@@ -365,8 +367,9 @@ void searchTheoThongTin(int search, int n, book mangSach[])
         transform(data.begin(), data.end(), data.begin(), ::tolower);
         for (int i = 0; i < n; i++)
         {
-            transform(mangSach[i].tenTacGia.begin(), mangSach[i].tenTacGia.end(), mangSach[i].tenTacGia.begin(), ::tolower);
-            if (mangSach[i].tenTacGia.find(data) != string::npos)
+            temp = mangSach[i].tenTacGia;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp.find(data) != string::npos)
             {
                 checkTimThongTin = true;
                 inSach(i, mangSach);
@@ -383,9 +386,9 @@ void searchTheoThongTin(int search, int n, book mangSach[])
         transform(data.begin(), data.end(), data.begin(), ::tolower);
         for (int i = 0; i < n; i++)
         {
-            transform(mangSach[i].nxb.begin(), mangSach[i].nxb.end(), mangSach[i].nxb.begin(), ::tolower);
-
-            if (mangSach[i].nxb.find(data) != string::npos)
+            temp = mangSach[i].nxb;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp.find(data) != string::npos)
             {
                 checkTimThongTin = true;
                 inSach(i, mangSach);
@@ -424,7 +427,7 @@ void searchTheoThongTin(int search, int n, book mangSach[])
 void quanLy(int n, book mangChuaSach[], int soLuongSachMuon, bookBorRe mangMuonTra[])
 {
     int search;
-    string data;
+    string data, temp;
     bool checkTimThongTin = false;
 nhapLai:
     system("cls");
@@ -456,8 +459,9 @@ nhapLai:
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
         for (int i = 0; i < soLuongSachMuon; i++)
         {
-            transform(mangMuonTra[i].tenSach.begin(), mangMuonTra[i].tenSach.end(), mangMuonTra[i].tenSach.begin(), ::tolower);
-            if (mangMuonTra[i].tenSach.find(data) != string::npos)
+            temp = mangMuonTra[i].tenSach;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp.find(data) != string::npos)
             {                            // hàm find, nếu nội dung của data trung với tenSach -> trả ra giá trị đầu tiên
                 checkTimThongTin = true; // npos, tức không tìm được vị trí index của tenSach trùng với data
                 inMuonTra(i, mangMuonTra);
@@ -474,8 +478,9 @@ nhapLai:
         transform(data.begin(), data.end(), data.begin(), ::tolower); // hàm chuyển sang lowercase, dùng cho string only (LƯU Ý: cần có thư viện bits để dùng)
         for (int i = 0; i < soLuongSachMuon; i++)
         {
-            transform(mangMuonTra[i].borName.begin(), mangMuonTra[i].borName.end(), mangMuonTra[i].borName.begin(), ::tolower);
-            if (mangMuonTra[i].borName.find(data) != string::npos)
+            temp = mangMuonTra[i].borName;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp.find(data) != string::npos)
             {
                 checkTimThongTin = true;
                 inMuonTra(i, mangMuonTra);
