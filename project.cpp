@@ -30,6 +30,7 @@ void inThongTinMuonTra(int n, bookBorRe b[]); // b[] la mang muon tra
 void hamSearchSach(int n, book mangSach[]);
 void searchTheoThongTin(int search, int n, book mangSach[]);
 void quanLy(int n, book mangChuaSach[], int n1, bookBorRe mangMuonTra[]);
+void xoaSach(int n, book a[]);
 
 int main()
 {
@@ -437,16 +438,18 @@ nhapLai:
     cout << "Thong tin sach hien co                    - chon '3'\n";
     cout << "Thong tin sach dang duoc muon             - chon '4'\n";
     cout << "Them nguoi muon sach                      - chon '5'\n";
+    // cout << "Xoa nguoi muon sach                       - chon '6'\n";
+    cout << "Xoa sach khoi thu vien                    - chon '7'\n";
     cout << "Quay lai chon tinh nang                   - chon '0'\n";
     do
     {
         cout << "Moi ban chon: ";
         cin >> search;
-        if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5)
+        if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5 || search == 6 || search == 7)
             break;
         else
             cout << "Lua chon khong hop le !\n";
-    } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5));
+    } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5 || search == 6 || search == 7));
     cin.ignore();
     system("cls");
     switch (search)
@@ -519,10 +522,185 @@ nhapLai:
     case 5:
         xuatFile2();
         goto nhapLai;
+    // case 6:
+    case 7:
+        xoaSach(n, mangChuaSach);
+        goto nhapLai;
     case 0:
         break;
     default:
         cout << "\nLua chon khong hop le. Vui long chon lai.\n";
         goto nhapLai;
+    }
+}
+void xoaSach(int n, book a[]) // a la mang chua sach trong thu vien
+{
+    string data; // lay du lieu tu nguoi dung
+    string temp; // tolower() thanh phan cua mang
+    int tempNam;
+xoaLai:
+    int search;
+    bool checkTimThongTin = false; // bao nguoi dung neu khong co sach
+    system("cls");
+    cout << "\nXOA SACH\n_______________________________________________\n";
+    cout << "Xoa sach theo ten sach          - chon '1'\n";
+    cout << "Xoa sach theo the loai          - chon '2'\n";
+    cout << "Xoa sach theo ten tac gia       - chon '3'\n";
+    cout << "Xoa sach theo nha xuat ban      - chon '4'\n";
+    cout << "Xoa sach theo nam xuat ban      - chon '5'\n";
+    cout << "Quay lai chon tinh nang         - chon '0'\n";
+    do
+    {
+        cout << "Moi ban chon: ";
+        cin >> search;
+        if (search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5)
+            break;
+        else
+            cout << "\nLua chon khong hop le !\n";
+    } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5));
+    cin.ignore();
+    system("cls");
+    switch (search)
+    {
+    case 1:
+    {
+        cout << "\nNhap ten sach can xoa: ";
+        getline(cin, data);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+        fstream fout("fileChuaSach.csv", ios::out);
+        for (int i = 0; i < n; i++)
+        {
+            temp = a[i].tenSach;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp == data)
+            {
+                checkTimThongTin = true;
+                continue; // bo qua neu day la sach can xoa
+            }
+            else // in ra fileQuanLy sach khong can xoa
+                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+        }
+        fout.close();
+        if (checkTimThongTin == false)
+            cout << "\nKhong tim thay ten sach!\n";
+        else
+            cout << "\n------------------Da xoa------------------\n";
+        system("pause");
+        docFile(n, a);
+        goto xoaLai;
+    }
+    case 2:
+    {
+        cout << "\nNhap ten the loai can xoa: ";
+        getline(cin, data);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+        fstream fout("fileChuaSach.csv", ios::out);
+        for (int i = 0; i < n; i++)
+        {
+            temp = a[i].theLoai;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp == data)
+            {
+                checkTimThongTin = true;
+                continue; // bo qua neu day la sach can xoa
+            }
+            else // in ra fileQuanLy sach khong can xoa
+                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+        }
+        fout.close();
+        if (checkTimThongTin == false)
+            cout << "\nKhong tim thay ten the loai!\n";
+        else
+            cout << "\n------------------Da xoa------------------\n";
+        system("pause");
+        docFile(n, a);
+        goto xoaLai;
+    }
+    case 3:
+    {
+        cout << "\nNhap ten tac gia can xoa: ";
+        getline(cin, data);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+        fstream fout("fileChuaSach.csv", ios::out);
+        for (int i = 0; i < n; i++)
+        {
+            temp = a[i].tenTacGia;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp == data)
+            {
+                checkTimThongTin = true;
+                continue; // bo qua neu day la sach can xoa
+            }
+            else // in ra fileQuanLy sach khong can xoa
+                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+        }
+        fout.close();
+        if (checkTimThongTin == false)
+            cout << "\nKhong tim thay ten tac gia!\n";
+        else
+            cout << "\n------------------Da xoa------------------\n";
+        system("pause");
+        docFile(n, a);
+        goto xoaLai;
+    }
+    case 4:
+    {
+        cout << "\nNhap ten nha xuat ban can xoa: ";
+        getline(cin, data);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+        fstream fout("fileChuaSach.csv", ios::out);
+        for (int i = 0; i < n; i++)
+        {
+            temp = a[i].nxb;
+            transform(temp.begin(), temp.end(), temp.begin(), ::tolower);
+            if (temp == data)
+            {
+                checkTimThongTin = true;
+                continue; // bo qua neu day la sach can xoa
+            }
+            else // in ra fileQuanLy sach khong can xoa
+                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+        }
+        fout.close();
+        if (checkTimThongTin == false)
+            cout << "\nKhong tim thay ten nha xuat ban!\n";
+        else
+            cout << "\n------------------Da xoa------------------\n";
+        system("pause");
+        docFile(n, a);
+        goto xoaLai;
+    }
+    case 5:
+    {
+        int namPhatHanh;
+        do
+        {
+            cout << "\nNhap nam phat hanh can xoa: ";
+            cin >> namPhatHanh;
+        } while (namPhatHanh < 1);
+        cout << endl;
+        fstream fout("fileChuaSach.csv", ios::out);
+        for (int i = 0; i < n; i++)
+        {
+            tempNam = stoi(a[i].namPhatHanh); // stoi chuyen string thanh integer
+            if (tempNam == namPhatHanh)
+            {
+                checkTimThongTin = true;
+                continue; // bo qua neu day la sach can xoa
+            }
+            else // in ra fileQuanLy sach khong can xoa
+                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+        }
+        fout.close();
+        if (checkTimThongTin == false)
+            cout << "\nKhong tim thay nam phat hanh!\n";
+        else
+            cout << "\n------------------Da xoa------------------\n";
+        system("pause");
+        docFile(n, a);
+        goto xoaLai;
+    }
+    case 0:
+        break;
     }
 }
