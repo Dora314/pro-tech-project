@@ -227,7 +227,7 @@ void xuatFile2()
     fstream fout;
     int n;
     fout.open("fileQuanLy.csv", ios::out | ios::app);
-    cout << "Nhap thong ve sach cho muon\n-------------------------------------------------------";
+    cout << "Nhap thong tin ve sach cho muon\n-------------------------------------------------------";
     cout << "\nNhap so luong sach can nhap: ";
     cin >> n;
     bookBorRe b[n];
