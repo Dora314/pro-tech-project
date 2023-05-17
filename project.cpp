@@ -629,8 +629,8 @@ xoaLai:
                 checkTimThongTin = true;
                 continue; // bo qua neu day la sach can xoa
             }
-            else // in ra fileQuanLy sach khong can xoa
-                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+            // in ra fileQuanLy sach khong can xoa
+            fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
         }
         fout.close();
         if (checkTimThongTin == false)
@@ -658,8 +658,8 @@ xoaLai:
                 checkTimThongTin = true;
                 continue; // bo qua neu day la sach can xoa
             }
-            else // in ra fileQuanLy sach khong can xoa
-                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+            // in ra fileQuanLy sach khong can xoa
+            fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
         }
         fout.close();
         if (checkTimThongTin == false)
@@ -687,8 +687,7 @@ xoaLai:
                 checkTimThongTin = true;
                 continue; // bo qua neu day la sach can xoa
             }
-            else // in ra fileQuanLy sach khong can xoa
-                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+            fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
         }
         fout.close();
         if (checkTimThongTin == false)
@@ -715,8 +714,7 @@ xoaLai:
                 checkTimThongTin = true;
                 continue; // bo qua neu day la sach can xoa
             }
-            else // in ra fileQuanLy sach khong can xoa
-                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+            fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
         }
         fout.close();
         if (checkTimThongTin == false)
@@ -746,8 +744,7 @@ xoaLai:
                 checkTimThongTin = true;
                 continue; // bo qua neu day la sach can xoa
             }
-            else // in ra fileQuanLy sach khong can xoa
-                fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
+            fout << a[i].tenSach << "," << a[i].theLoai << "," << a[i].tenTacGia << "," << a[i].nxb << "," << a[i].namPhatHanh << endl;
         }
         fout.close();
         if (checkTimThongTin == false)
