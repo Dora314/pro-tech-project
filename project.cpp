@@ -33,9 +33,10 @@ void inThongTinMuonTra(int n, bookBorRe b[]); // b[] la mang muon tra
 void hamSearchSach(int n, book mangSach[]);
 void searchTheoThongTin(int search, int n, book mangSach[]);
 
-void quanLy(int &n, book mangChuaSach[], int &n1, bookBorRe mangMuonTra[]);
+void quanLy(int n, book mangChuaSach[], int &n1, bookBorRe mangMuonTra[]);
 void xoaSach(int &n, book a[]);
 void xoaThongTinNguoiMuon (int &soLuongSachMuon, bookBorRe mangMuonTra[]);
+void chinhSuaThongTin (int soLuongSachMuon, bookBorRe mangMuonTra[]);             // do chỉnh sửa thông tin nên không cần biến đổi số lượng sách mượn
 void hamCapNhatSoLuongSachTrongThuVien (int &soSachThuVien, book mangSach[]);
 
 
@@ -452,7 +453,7 @@ void searchTheoThongTin(int search, int soLuongSach, book mangSach[])
     }
 }
 
-void quanLy(int &n, book mangChuaSach[], int &soLuongSachMuon, bookBorRe mangMuonTra[])
+void quanLy(int n, book mangChuaSach[], int &soLuongSachMuon, bookBorRe mangMuonTra[])
 {
     int search;
     string data, temp;
@@ -468,6 +469,7 @@ nhapLai:
     cout << "Them nguoi muon sach                      - chon '5'\n"; // thêm (thì fileQuanLy ++) và fileSach - 1 sách ---> ghi lại file mượn và file sách
     cout << "Xoa nguoi muon sach                       - chon '6'\n";
     cout << "Xoa sach khoi thu vien                    - chon '7'\n";
+    cout << "Sua thong tin                             - chon '8'\n";
     //cout << "Thong ke so sach(cung tac gia,the loai,.) - chon '8'\n";
     cout << "Quay lai chon tinh nang                   - chon '0'\n";
     do
@@ -548,6 +550,7 @@ nhapLai:
     case 4:
         cout << "So luong sach hien dang duoc muon la " << soLuongSachMuon << endl;
         do
+
         {
             cout << "In tat ca thong tin ve sach hien co (Nhap 1 = CO, 0 = KHONG)? ";
             cin >> search;
@@ -574,7 +577,7 @@ nhapLai:
     case 7:
         xoaSach(n, mangChuaSach);
         n--; // mỗi lần xóa sách (mất) -> trong kho thư viện sẽ giảm 1 sách
-        hamCapNhatSoLuongSachTrongThuVien (n , mangChuaSach);
+        //hamCapNhatSoLuongSachTrongThuVien (n , mangChuaSach);
         goto nhapLai;
     case 0:
         break;
@@ -830,28 +833,25 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soSachThuVien, book mangSach[]){
     int option;
     string tenSach;
 
-    cout << "Cap nhat sach 'DA CHO MUON' hoac 'SACH MUON XOA' vao thu vien (tuc sach da cho muon) - Nhap 0 \n";     // sau khi xóa ra fileQuanLy -> nhập vào fileChuaSach
+    cout << "Cap nhat sach 'DA CHO MUON' vao thu vien (tuc sach da cho muon) - Nhap 0 \n";     // sau khi xóa ra fileQuanLy -> nhập vào fileChuaSach
     cout << "Cap nhat sach 'DA TRA' vao thu vien (tuc sach duoc tra lai) - Nhap 1  \n";   // xóa sách từ fileChuaSach -> nhập sang fileQuanLy
     do 
     {
         cout << "Moi ban nhap 0 (sach da cho muon) hoac 1 (sach duoc tra)";
         cin >> option;
+        cin.ignore();
         if (!(option== 0 || option == 1)){
             cout << "Lua chon khong hop le, Vui long nhap lai \n";
         }
     }
     while (!(option== 0 || option == 1));
-    switch (option)
+    switch(option)
     {
-    case 1:
-        cout << "                                                                       \n";
+    case 0:{
+
+        cout << "\n\n";
         cout << "------------Tinh nang cap nhat so luong sach trong thu vien------------\n";
-        xuatFile();
-        break;
-    case 0:
-        cout << "                                                                       \n";
-        cout << "------------Tinh nang cap nhat so luong sach trong thu vien------------\n";
-        cout << "Nhap ten sach vua cho muon hoac xoa sach ra khoi thu vien: ";
+        cout << "Nhap ten sach vua cho muon: ";
         getline(cin,tenSach);
 
         int n = soSachThuVien; // gán để cập nhật số sach, nếu kh bị ảnh hương trong lúc ghi
@@ -870,6 +870,17 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soSachThuVien, book mangSach[]){
             cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
             cout << "Dang chay...\n";
             system ("pause");
+            break;}
+
+        case 1:{
+            cout << "\n\n";
+            cout << "------------Tinh nang cap nhat so luong sach trong thu vien------------\n";
+            xuatFile();
             break;
+        }
+       
     }
 }
+
+
+
