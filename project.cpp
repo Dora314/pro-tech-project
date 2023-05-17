@@ -33,7 +33,7 @@ void inThongTinMuonTra(int n, bookBorRe b[]); // b[] la mang muon tra
 void hamSearchSach(int n, book mangSach[]);
 void searchTheoThongTin(int search, int n, book mangSach[]);
 
-void quanLy(int n, book mangChuaSach[], int &n1, bookBorRe mangMuonTra[]);
+void quanLy(int n, book mangChuaSach[], int n1, bookBorRe mangMuonTra[]);
 void xoaSach(int &n, book a[]);
 void xoaThongTinNguoiMuon (int &soLuongSachMuon, bookBorRe mangMuonTra[]);
 void chinhSuaThongTin (int soLuongSachMuon, bookBorRe mangMuonTra[]);             // do chỉnh sửa thông tin nên không cần biến đổi số lượng sách mượn
@@ -196,10 +196,9 @@ ended:
 void xuatFile()
 {
     fstream fout;
-    int n, namPhatHanh;
+    int namPhatHanh, n;
     fout.open("fileChuaSach.csv", ios::out | ios::app);
     cout << "Nhap thong tin ve sach\n-------------------------------------------------------";
-    cout << "\nNhap so luong sach can nhap: ";
     cin >> n;
     book mangSach[n];
     for (int i = 0; i < n; i++)
@@ -228,7 +227,7 @@ void docFile(int &n, book mangSach[])
 {
     fstream fin;
     fin.open("fileChuaSach.csv", ios::in);
-    n = 0;
+    n = 0;                                  //reset số sách sau mỗi lần đọc
     if (fin.is_open())
     {
         while (getline(fin, mangSach[n].tenSach, ',') && getline(fin, mangSach[n].theLoai, ',') && getline(fin, mangSach[n].tenTacGia, ',') && getline(fin, mangSach[n].nxb, ',') && getline(fin, mangSach[n].namPhatHanh))
@@ -268,7 +267,7 @@ void docFile2(int &n1, bookBorRe mangMuonTra[])
 {
     fstream fin;
     fin.open("fileQuanLy.csv", ios::in);
-    n1 = 0;  // đọc số sách đang được mượn trong file 
+    n1 = 0;  // đọc số sách đang được mượn trong file - reset số sách sau mỗi lần đọc
     if (fin.is_open())
     {
         // hàm getline dùng để đọc hết cả dòng
@@ -453,7 +452,7 @@ void searchTheoThongTin(int search, int soLuongSach, book mangSach[])
     }
 }
 
-void quanLy(int n, book mangChuaSach[], int &soLuongSachMuon, bookBorRe mangMuonTra[])
+void quanLy(int n, book mangChuaSach[], int soLuongSachMuon, bookBorRe mangMuonTra[])
 {
     int search;
     string data, temp;
@@ -480,7 +479,11 @@ nhapLai:
             cout << "Lua chon khong hop le !\n";
     } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5 || search == 6 || search == 7));
     cin.ignore(); // xóa đệm từ cin search
+    docFile(n,mangChuaSach);
+    docFile2 (soLuongSachMuon, mangMuonTra);
     system("cls");
+
+
     switch (search)
     {
     case 1:
@@ -503,7 +506,6 @@ nhapLai:
             cout << "Quyen sach nay van chua duoc muon !\n";
         }
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";
         system("pause");
         goto nhapLai;
 
@@ -526,7 +528,6 @@ nhapLai:
             cout << "Khong tim thay ten nguoi muon !\n";
         }
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";
         system("pause");
         goto nhapLai;
 
@@ -543,14 +544,12 @@ nhapLai:
             inThongTinSach(n, mangChuaSach); 
         }
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";
         system("pause");
         goto nhapLai;
 
     case 4:
         cout << "So luong sach hien dang duoc muon la " << soLuongSachMuon << endl;
         do
-
         {
             cout << "In tat ca thong tin ve sach hien co (Nhap 1 = CO, 0 = KHONG)? ";
             cin >> search;
@@ -561,23 +560,19 @@ nhapLai:
             inThongTinMuonTra(soLuongSachMuon, mangMuonTra);
         }
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";      
         system("pause");
         goto nhapLai;
     case 5:
-        xuatFile2();
-        soLuongSachMuon++;    // mỗi lần xóa sách thư viện -> quản lý sẽ tăng (đã đọc trên main)
-        hamCapNhatSoLuongSachTrongThuVien (n , mangChuaSach);// thêm người mượn -> cũng phải cập nhật sách trong fileSach
+        xuatFile2(); // thêm 1 người mượn
+        docFile2(soLuongSachMuon, mangMuonTra); // đọc lại để update số lượng người mượn
+        hamCapNhatSoLuongSachTrongThuVien (n , mangChuaSach);
         goto nhapLai;
     case 6:
-        xoaThongTinNguoiMuon(soLuongSachMuon, mangMuonTra);
-        n++; // mỗi lần xóa người mượn -> trong kho thư viện sẽ tăng thêm 1 sách
+        xoaThongTinNguoiMuon(soLuongSachMuon, mangMuonTra);    
         hamCapNhatSoLuongSachTrongThuVien (n , mangChuaSach);
         goto nhapLai;
     case 7:
         xoaSach(n, mangChuaSach);
-        n--; // mỗi lần xóa sách (mất) -> trong kho thư viện sẽ giảm 1 sách
-        //hamCapNhatSoLuongSachTrongThuVien (n , mangChuaSach);
         goto nhapLai;
     case 0:
         break;
@@ -643,9 +638,8 @@ xoaLai:
         else
             cout << "\n------------------Da xoa------------------\n";
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";
         system ("pause");
-        docFile(soLuongSach, a);
+        docFile(soLuongSach, a); // đọc lại để update số lượng sách
         goto xoaLai;
     }
     case 2:
@@ -673,7 +667,7 @@ xoaLai:
         else
             cout << "\n------------------Da xoa------------------\n";
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";
+
         system("pause");
         docFile(soLuongSach, a);
         goto xoaLai;
@@ -702,7 +696,6 @@ xoaLai:
         else
             cout << "\n------------------Da xoa------------------\n";
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";
         system ("pause");
         docFile(soLuongSach, a);
         goto xoaLai;
@@ -731,7 +724,6 @@ xoaLai:
         else
             cout << "\n------------------Da xoa------------------\n";
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-        cout << "Dang chay...\n";
         system ("pause");
         docFile(soLuongSach, a);
         goto xoaLai;
@@ -804,7 +796,6 @@ void xoaThongTinNguoiMuon (int &soLuongSachMuon, bookBorRe mangMuonTra[]){
     }
     else {
         cout << "Nhap day du ten va ten sach muon xoa theo noi dung o tren \n";
-        
         string tenNguoiMuon, tenSachMuon;
         cout << "Nhap ten cua nguoi muon xoa: ";
         getline (cin, tenNguoiMuon);
@@ -815,12 +806,11 @@ void xoaThongTinNguoiMuon (int &soLuongSachMuon, bookBorRe mangMuonTra[]){
         for (int i = 0; i < n; i++){                 // n = soLuongSachMuon (tui gán để tránh bị đổi giá trị soLuong)
             if (tenNguoiMuon == mangMuonTra[i].borName && tenSachMuon == mangMuonTra[i].tenSach)
             {
-                soLuongSachMuon--; // vì sau khi xóa, số sách sẽ bị thay đổi 
                 continue;
             }
             myFile << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
-           
         }
+        docFile2(soLuongSachMuon,mangMuonTra); // update số lượn trong file quản lý 
         myFile.close();
         cout << "\n------------------Da xoa------------------\n"; 
         cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
@@ -829,15 +819,15 @@ void xoaThongTinNguoiMuon (int &soLuongSachMuon, bookBorRe mangMuonTra[]){
     }
 }
 
-void hamCapNhatSoLuongSachTrongThuVien (int &soSachThuVien, book mangSach[]){
+void hamCapNhatSoLuongSachTrongThuVien (int &soLuongSach, book mangSach[]){
     int option;
     string tenSach;
-
+    cout << "\n\n";
     cout << "Cap nhat sach 'DA CHO MUON' vao thu vien (tuc sach da cho muon) - Nhap 0 \n";     // sau khi xóa ra fileQuanLy -> nhập vào fileChuaSach
     cout << "Cap nhat sach 'DA TRA' vao thu vien (tuc sach duoc tra lai) - Nhap 1  \n";   // xóa sách từ fileChuaSach -> nhập sang fileQuanLy
     do 
     {
-        cout << "Moi ban nhap 0 (sach da cho muon) hoac 1 (sach duoc tra)";
+        cout << "Moi ban nhap 0 (sach da cho muon) hoac 1 (sach duoc tra): ";
         cin >> option;
         cin.ignore();
         if (!(option== 0 || option == 1)){
@@ -854,17 +844,17 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soSachThuVien, book mangSach[]){
         cout << "Nhap ten sach vua cho muon: ";
         getline(cin,tenSach);
 
-        int n = soSachThuVien; // gán để cập nhật số sach, nếu kh bị ảnh hương trong lúc ghi
+        int n = soLuongSach; // gán để cập nhật số sach, nếu kh bị ảnh hương trong lúc ghi
         fstream myFile("fileChuaSach.csv", ios::out);  
             for (int i = 0; i < n; i++){                 // n = soLuongSachMuon (tui gán để tránh bị đổi giá trị soLuong)
                 if (tenSach == mangSach[i].tenSach )
                 {
-                    soSachThuVien--; // vì sau khi xóa, số sách sẽ bị thay đổi 
                     continue;
                 }
                 myFile << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh << endl;
-                
             }
+
+            docFile(soLuongSach,mangSach); // đọc lại để update số sách đã cho mượn
             myFile.close();
             cout << "\n------------------Da cap nhat so sach thu vien------------------\n"; 
             cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
@@ -876,11 +866,10 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soSachThuVien, book mangSach[]){
             cout << "\n\n";
             cout << "------------Tinh nang cap nhat so luong sach trong thu vien------------\n";
             xuatFile();
+            docFile(soLuongSach, mangSach); // update số sách đã được trả
             break;
         }
        
     }
 }
-
-
 
