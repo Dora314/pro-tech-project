@@ -815,11 +815,8 @@ void xoaThongTinNguoiMuon (int &soLuongSachMuon, bookBorRe mangMuonTra[]){
                 soLuongSachMuon--; // vì sau khi xóa, số sách sẽ bị thay đổi 
                 continue;
             }
-            myFile << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay;
-            if (i != n - 1)
-            {
-                myFile << endl;
-            }
+            myFile << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
+           
         }
         myFile.close();
         cout << "\n------------------Da xoa------------------\n"; 
@@ -865,11 +862,8 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soSachThuVien, book mangSach[]){
                     soSachThuVien--; // vì sau khi xóa, số sách sẽ bị thay đổi 
                     continue;
                 }
-                myFile << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh;
-                if (i != n - 1)
-                {
-                    myFile << endl;
-                }
+                myFile << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh << endl;
+                
             }
             myFile.close();
             cout << "\n------------------Da cap nhat so sach thu vien------------------\n"; 
