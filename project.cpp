@@ -475,9 +475,9 @@ nhapLai:
     {
         cout << "Moi ban chon: ";
         cin >> search;
-        if (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5 || search == 6 || search == 7))
+        if (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5 || search == 6 || search == 7|| search == 8))
             cout << "Lua chon khong hop le !\n";
-    } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5 || search == 6 || search == 7));
+    } while (!(search == 0 || search == 1 || search == 2 || search == 3 || search == 4 || search == 5 || search == 6 || search == 7 || search == 8));
     cin.ignore(); // xóa đệm từ cin search
     docFile(n,mangChuaSach);
     docFile2 (soLuongSachMuon, mangMuonTra);
@@ -573,6 +573,9 @@ nhapLai:
         goto nhapLai;
     case 7:
         xoaSach(n, mangChuaSach);
+        goto nhapLai;
+    case 8:
+        chinhSuaThongTin (soLuongSachMuon, mangMuonTra);
         goto nhapLai;
     case 0:
         break;
@@ -794,9 +797,9 @@ void xoaThongTinNguoiMuon (int &soLuongSachMuon, bookBorRe mangMuonTra[]){
     else {
         cout << "Nhap day du ten va ten sach muon xoa theo noi dung o tren \n";
         string tenNguoiMuon, tenSachMuon;
-        cout << "Nhap ten cua nguoi muon xoa: ";
+        cout << "Nhap ten cua nguoi muon xoa (nhap DUNG nhu trong file): ";
         getline (cin, tenNguoiMuon);
-        cout << "Nhap ten cuon sach muon tra: ";
+        cout << "Nhap ten cuon sach muon tra (nhap DUNG nhu trong file): ";
         getline (cin, tenSachMuon);
     
         fstream myFile("fileQuanLy.csv", ios::out);  
@@ -838,7 +841,7 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soLuongSach, book mangSach[]){
 
         cout << "\n\n";
         cout << "------------Tinh nang cap nhat so luong sach trong thu vien------------\n";
-        cout << "Nhap ten sach vua cho muon: ";
+        cout << "Nhap ten sach vua cho muon (nhap DUNG ten sach): ";
         getline(cin,tenSach);
 
         int n = soLuongSach; // gán để cập nhật số sach, nếu kh bị ảnh hương trong lúc ghi
@@ -855,7 +858,6 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soLuongSach, book mangSach[]){
             myFile.close();
             cout << "\n------------------Da cap nhat so sach thu vien------------------\n"; 
             cout << "Bam nut bat ki de quay lai tinh nang quan ly \n";
-            cout << "Dang chay...\n";
             system ("pause");
             break;}
 
@@ -870,3 +872,33 @@ void hamCapNhatSoLuongSachTrongThuVien (int &soLuongSach, book mangSach[]){
     }
 }
 
+void chinhSuaThongTin (int soLuongSachMuon, bookBorRe mangMuonTra[]){    //sửa đối tên nếu sai
+    // in hết thông tin để quản lý có thể xem thông tin nào cần sửa
+    cout << "---------------------Thong tin nguoi muon sach--------------------- \n";
+    for (int i = 0; i < soLuongSachMuon; i++){    
+            inMuonTra(i, mangMuonTra);
+    }
+    string data1, data2;
+
+    cout << "---------------------Nhap thong tin can chinh sua--------------------- \n"; 
+    cout << "Nhap ten muon sua - ten bi sai (go 'DUNG' ten nhu thong tin vua in): ";
+    getline (cin, data1);
+    cout << "Chinh sua ten thanh: "; 
+    getline (cin,data2);
+    system("cls");  
+    string temp1,temp2,temp3,temp4; //để lưu lại biến sách, ngày mượn trả in lại, sau khi chỉnh sửa
+
+    fstream myFile;
+    myFile.open("fileQuanLy.csv", ios::out);
+    for (int i = 0; i < soLuongSachMuon; i++){ //in ra thông tin sai cần sửa
+        
+        if (data1 == mangMuonTra[i].borName){                                         //data1 = tên muốn sửa
+            myFile << mangMuonTra[i].tenSach << "," << data2 << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << '\n' ; //data2 = tên sửa
+            continue;
+        }
+        myFile << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
+    }
+    myFile.close();
+    cout << "\n------------------Da Chinh Sua Xong Thong Tin------------------\n"; 
+    system("pause");
+}
