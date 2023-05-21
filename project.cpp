@@ -129,7 +129,8 @@ hoiAdmin:
     }
 end:
     system("cls");
-    cout << "\n\nCam on da su dung chuong trinh! Rat vui khi duoc phuc vu! Xin chao va hen gap lai!\n_______________________________________________________\n\n";
+    cout << "\n\nCam on da su dung chuong trinh! Rat vui khi duoc phuc vu! Xin chao va hen gap lai!\n";
+    cout << "======================================================================================\n";
     cout << "        QUAN LY DU AN THU VIEN TEAM 8 - DANG NAM - THIEN DUY - QUOC BAO\n";
     cout << "======================================================================================\n\n";
     system("pause");
