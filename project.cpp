@@ -935,11 +935,11 @@ chinhLai:
                 inSach_dungChoHamSearch(i, mangChuaSach);
                 checkTimThongTin = true;
             }
-        ofstream fout("fileChuaSach.csv");
         if (checkTimThongTin == true)
         {
             cout << "\nMoi ban nhap ten moi: ";
             getline(cin, dataNew);
+            ofstream fout("fileChuaSach.csv");
             for (int i = 0; i < soLuongSach; i++)
             {
                 if (data == mangChuaSach[i].tenSach)
@@ -950,10 +950,10 @@ chinhLai:
                 fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << mangChuaSach[i].tenTacGia << "," << mangChuaSach[i].nxb << "," << mangChuaSach[i].namPhatHanh << '\n';
             }
             cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+            fout.close();
         }
         else
             cout << "\nKhong tim thay ten sach nay!\n";
-        fout.close();
         docFile(soLuongSach, mangChuaSach);
         system("pause");
         goto chinhLai;
@@ -968,9 +968,9 @@ chinhLai:
                 inSach_dungChoHamSearch(i, mangChuaSach);
                 checkTimThongTin = true;
             }
-        ofstream fout("fileChuaSach.csv");
         if (checkTimThongTin == true)
         {
+            ofstream fout("fileChuaSach.csv");
             cout << "\nMoi ban nhap ten the loai moi: ";
             getline(cin, dataNew);
             for (int i = 0; i < soLuongSach; i++)
@@ -984,10 +984,10 @@ chinhLai:
                 fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << mangChuaSach[i].tenTacGia << "," << mangChuaSach[i].nxb << "," << mangChuaSach[i].namPhatHanh << '\n';
             }
             cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+            fout.close();
         }
         else
             cout << "\nKhong tim thay ten sach nay!\n";
-        fout.close();
         docFile(soLuongSach, mangChuaSach);
         system("pause");
         goto chinhLai;
@@ -1002,26 +1002,27 @@ chinhLai:
                 inSach_dungChoHamSearch(i, mangChuaSach);
                 checkTimThongTin = true;
             }
-        ofstream fout("fileChuaSach.csv");
+        
         if (checkTimThongTin == true)
         {
+            ofstream fout("fileChuaSach.csv");
+            cout << "\nMoi ban nhap ten tac gia moi: ";
+            getline(cin, dataNew);
             for (int i = 0; i < soLuongSach; i++)
             {
                 if (data == mangChuaSach[i].tenSach)
-                {
-                    checkTimThongTin = true;
-                    cout << "\nMoi ban nhap ten tac gia moi: ";
-                    getline(cin, dataNew);
+                {                    
                     fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << dataNew << "," << mangChuaSach[i].nxb << "," << mangChuaSach[i].namPhatHanh << '\n';
                     continue;
                 }
                 fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << mangChuaSach[i].tenTacGia << "," << mangChuaSach[i].nxb << "," << mangChuaSach[i].namPhatHanh << '\n';
             }
             cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+            fout.close();
         }
         else
             cout << "\nKhong tim thay ten sach nay!\n";
-        fout.close();
+        
         docFile(soLuongSach, mangChuaSach);
         system("pause");
         goto chinhLai;
@@ -1036,26 +1037,25 @@ chinhLai:
                 inSach_dungChoHamSearch(i, mangChuaSach);
                 checkTimThongTin = true;
             }
-        ofstream fout("fileChuaSach.csv");
         if (checkTimThongTin == true)
         {
+            ofstream fout("fileChuaSach.csv");
+            cout << "\nMoi ban nhap ten nha xuat ban moi: ";
+            getline(cin, dataNew);
             for (int i = 0; i < soLuongSach; i++)
             {
-                if (data == mangChuaSach[i].nxb)
+                if (data == mangChuaSach[i].tenSach)
                 {
-                    checkTimThongTin = true;
-                    cout << "\nMoi ban nhap ten nha xuat ban moi: ";
-                    getline(cin, dataNew);
                     fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << mangChuaSach[i].tenTacGia << "," << dataNew << "," << mangChuaSach[i].namPhatHanh << '\n';
                     continue;
                 }
                 fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << mangChuaSach[i].tenTacGia << "," << mangChuaSach[i].nxb << "," << mangChuaSach[i].namPhatHanh << '\n';
             }
             cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+            fout.close();
         }
         else
             cout << "\nKhong tim thay ten sach nay!\n";
-        fout.close();
         docFile(soLuongSach, mangChuaSach);
         system("pause");
         goto chinhLai;
@@ -1070,26 +1070,26 @@ chinhLai:
                 inSach_dungChoHamSearch(i, mangChuaSach);
                 checkTimThongTin = true;
             }
-        ofstream fout("fileChuaSach.csv");
+        
         if (checkTimThongTin == true)
         {
+            cout << "\nMoi ban nhap ten tac gia moi: ";
+            getline(cin, dataNew);
+            ofstream fout("fileChuaSach.csv");
             for (int i = 0; i < soLuongSach; i++)
             {
                 if (data == mangChuaSach[i].tenSach)
                 {
-                    checkTimThongTin = true;
-                    cout << "\nMoi ban nhap ten tac gia moi: ";
-                    getline(cin, dataNew);
                     fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << mangChuaSach[i].namPhatHanh << "," << mangChuaSach[i].nxb << "," << dataNew << '\n';
                     continue;
                 }
                 fout << mangChuaSach[i].tenSach << "," << mangChuaSach[i].theLoai << "," << mangChuaSach[i].tenTacGia << "," << mangChuaSach[i].nxb << "," << mangChuaSach[i].namPhatHanh << '\n';
             }
             cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+            fout.close();
         }
         else
             cout << "\nKhong tim thay ten sach nay!\n";
-        fout.close();
         docFile(soLuongSach, mangChuaSach);
         system("pause");
         goto chinhLai;
@@ -1137,11 +1137,11 @@ chinhLai:
                 inMuonTra(i, mangMuonTra);
                 checkTimThongTin = true;
             }
-        ofstream fout("fileQuanLy.csv");
         if (checkTimThongTin == true)
         {
             cout << "\nMoi ban nhap ten moi: ";
             getline(cin, dataNew);
+            ofstream fout("fileQuanLy.csv");
             for (int i = 0; i < soLuongSachMuon; i++)
             {
                 if (data == mangMuonTra[i].tenSach)
@@ -1152,10 +1152,10 @@ chinhLai:
                 fout << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
             }
             cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+            fout.close();
         }
         else
             cout << "\nKhong tim thay ten sach nay!\n";
-        fout.close();
         docFile2(soLuongSachMuon, mangMuonTra);
         system("pause");
         goto chinhLai;
@@ -1170,9 +1170,9 @@ chinhLai:
                 inMuonTra(i, mangMuonTra);
                 checkTimThongTin = true;
             }
-        ofstream fout("fileQuanLy.csv");
         if (checkTimThongTin == true)
         {
+            ofstream fout("fileQuanLy.csv");
             cout << "\nMoi ban nhap ten moi: ";
             getline(cin, dataNew);
             for (int i = 0; i < soLuongSachMuon; i++)
@@ -1185,10 +1185,10 @@ chinhLai:
                 fout << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
             }
             cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+            fout.close();
         }
         else
             cout << "\nKhong tim thay ten sach nay!\n";
-        fout.close();
         docFile2(soLuongSachMuon, mangMuonTra);
         system("pause");
         goto chinhLai;
