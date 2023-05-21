@@ -614,7 +614,7 @@ xoaLai:
     bool checkTimThongTin = false; // bao nguoi dung neu khong co sach
     system("cls");
     cout << "\n             XOA SACH\n";
-    cout << "________________________________________________n";
+    cout << "_______________________________________________\n";
     cout << "||                                ||         ||\n";
     cout << "||Xoa sach theo ten sach          || Chon '1'||\n";
     cout << "||Xoa sach theo the loai          || Chon '2'||\n";
