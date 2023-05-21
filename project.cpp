@@ -806,9 +806,7 @@ void xoaThongTinNguoiMuon(int &soLuongSachMuon, bookBorRe mangMuonTra[])
         }
     }
     if (found == false)
-    {
-        cout << "Khong co ten nguoi muon trong danh sach !!!";
-    }
+        cout << "\nKhong co ten nguoi muon trong danh sach !!!\n";
     else
     {
         cout << "Vui long nhap day du ten va ten sach muon xoa theo noi dung o tren.\n";
@@ -907,23 +905,22 @@ void chinhSuaThongTin(int soLuongSachMuon, bookBorRe mangMuonTra[])
         inMuonTra(i, mangMuonTra);
     }
     string data1, data2;
-
     cout << "---------------------NHAP THONG TIN CAN CHINH SUA--------------------- \n";
     cout << "Moi ban nhap ten nguoi muon muon sua - ten sai (Vui long nhap dung ten ma thong tin vua in): ";
     getline(cin, data1);
     cout << "Ban se chinh sua ten nguoi muon thanh: ";
     getline(cin, data2);
     system("cls");
-    string temp1, temp2, temp3, temp4; // để lưu lại biến sách, ngày mượn trả in lại, sau khi chỉnh sửa
-
     fstream myFile;
     myFile.open("fileQuanLy.csv", ios::out);
     for (int i = 0; i < soLuongSachMuon; i++)
-    { // in ra thông tin sai cần sửa
-
+    {
+        // in ra thông tin mới của sách
         if (data1 == mangMuonTra[i].borName)
-        {                                                                                                                            // data1 = tên muốn sửa
-            myFile << mangMuonTra[i].tenSach << "," << data2 << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << '\n'; // data2 = tên sửa
+        {
+            // data1 = tên muốn sửa
+            // data2 = tên sửa
+            myFile << mangMuonTra[i].tenSach << "," << data2 << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << '\n';
             continue;
         }
         myFile << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
