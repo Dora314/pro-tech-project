@@ -1079,38 +1079,90 @@ chinhLai:
 }
 
 void chinhSuaThongTin2(int soLuongSachMuon, bookBorRe mangMuonTra[])
-{ // sửa đối tên nếu sai
-    // in hết thông tin để quản lý có thể xem thông tin nào cần sửa
-    cout << "---------------------THONG TIN NGUOI MUON SACH--------------------- \n";
-    for (int i = 0; i < soLuongSachMuon; i++)
-        inMuonTra(i, mangMuonTra);
-    string data1, data2;
-    bool check = false;
-    cout << "---------------------NHAP THONG TIN CAN CHINH SUA--------------------- \n";
-    cout << "Moi ban nhap ten nguoi muon muon sua - ten sai (Vui long nhap dung ten ma thong tin vua in): ";
-    getline(cin, data1);
-    cout << "Ban se chinh sua ten nguoi muon thanh: ";
-    getline(cin, data2);
+{
+    // data là dữ liệu cũ, dataNew là dữ liệu mới
+    string data, dataNew;
+    int tempNam;
+chinhLai:
+    int search;
+    bool checkTimThongTin = false; // báo nếu không tìm thấy
     system("cls");
-    fstream myFile;
-    myFile.open("fileQuanLy.csv", ios::out);
-    for (int i = 0; i < soLuongSachMuon; i++)
+    cout << "\n             CHINH SUA\n";
+    cout << "_______________________________________________\n";
+    cout << "||                                ||         ||\n";
+    cout << "||Chinh sua ten sach              || Chon '1'||\n";
+    cout << "||Chinh sua ten nguoi muon        || Chon '2'||\n";
+    cout << "||Quay lai chon tinh nang         || Chon '0'||\n";
+    cout << "||________________________________||_________||\n";
+    do
     {
-        // in ra thông tin mới của sách
-        if (data1 == mangMuonTra[i].borName)
+        cout << "Moi ban chon: ";
+        cin >> search;
+        if (!(search == 0 || search == 1 || search == 2))
         {
-            // data1 = tên muốn sửa
-            // data2 = tên sửa
-            check = true;
-            myFile << mangMuonTra[i].tenSach << "," << data2 << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << '\n';
-            continue;
+            cout << "\nLua chon khong hop le! Vui long chon lai!\n";
         }
-        myFile << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
+    } while (!(search == 0 || search == 1 || search == 2));
+    cin.ignore();
+    system("cls");
+    switch (search)
+    {
+    case 1:
+    {
+        cout << "\nMoi ban nhap ten sach can chinh sua (Vui long nhap chinh xac ten bi sai): ";
+        getline(cin, data);
+        for (int i = 0; i < soLuongSachMuon; i++)
+            if (data == mangMuonTra[i].tenSach)
+                inMuonTra(i, mangMuonTra);
+        ofstream fout("fileQuanLy.csv");
+        for (int i = 0; i < soLuongSachMuon; i++)
+        {
+            if (data == mangMuonTra[i].tenSach)
+            {
+                checkTimThongTin = true;
+                cout << "\nMoi ban nhap ten moi: ";
+                getline(cin, dataNew);
+                fout << dataNew << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
+                continue;
+            }
+            fout << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
+        }
+        fout.close();
+        if (checkTimThongTin == false)
+            cout << "\nKhong tim thay ten sach nay!\n";
+        else
+            cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+        docFile2(soLuongSachMuon, mangMuonTra);
+        system("pause");
+        goto chinhLai;
     }
-    myFile.close();
-    if (check == false)
-        cout << "\nKhong tim thay ten nguoi muon nay!\n";
-    else
-        cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
-    system("pause");
-}
+    case 2:
+    {
+        cout << "\nMoi ban nhap ten nguoi muon can chinh sua (Vui long nhap chinh xac ten bi sai): ";
+        getline(cin, data);
+        for (int i = 0; i < soLuongSachMuon; i++)
+            if (data == mangMuonTra[i].borName)
+                inMuonTra(i, mangMuonTra);
+        ofstream fout("fileQuanLy.csv");
+        for (int i = 0; i < soLuongSachMuon; i++)
+        {
+            if (data == mangMuonTra[i].borName)
+            {
+                checkTimThongTin = true;
+                cout << "\nMoi ban nhap ten moi: ";
+                getline(cin, dataNew);
+                fout << mangMuonTra[i].tenSach << "," << dataNew << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
+                continue;
+            }
+            fout << mangMuonTra[i].tenSach << "," << mangMuonTra[i].borName << "," << mangMuonTra[i].borDay << "," << mangMuonTra[i].reDay << endl;
+        }
+        fout.close();
+        if (checkTimThongTin == false)
+            cout << "\nKhong tim thay ten sach nay!\n";
+        else
+            cout << "\n------------------DA CHINH SUA THANH CONG------------------\n";
+        docFile2(soLuongSachMuon, mangMuonTra);
+        system("pause");
+        goto chinhLai;
+    }
+    }
