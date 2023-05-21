@@ -60,7 +60,7 @@ hoiAdmin:
         {
         nhapLai:
             system("cls"); // xoa man hinh giong clrscr trong pascal
-            cout << "\n        MOI BAN CHON TINH NANG\n";
+            cout << "\n       MOI BAN CHON TINH NANG\n";
             cout << "__________________________________________\n";
             cout << "||                           ||          ||\n";
             cout << "||Tim kiem sach              || Chon '1' ||\n";
@@ -101,7 +101,7 @@ hoiAdmin:
     {
     nhapLaiKhongPhaiAdmin:
         system("cls"); // xoa man hinh giong clrscr trong pascal
-        cout << "\n     MOI BAN CHON TINH NANG\n";
+        cout << "\n       MOI BAN CHON TINH NANG\n";
         cout << "____________________________________\n";
         cout << "||                    ||          ||\n";
         cout << "||Tim kiem sach       || Chon '1' ||\n";
@@ -295,7 +295,7 @@ void inSach_dungChoHamSearch(int i, book a[]) // In thông tin sách có trong t
     cout << "Ten tac gia: " << a[i].tenTacGia << endl;
     cout << "Nha xuat ban: " << a[i].nxb << endl;
     cout << "Nam phat hanh: " << a[i].namPhatHanh;
-    cout << "-------------------------------------------------\n";
+    cout << "\n-------------------------------------------------\n";
 }
 
 void inMuonTra(int i, bookBorRe b[]) // In thông tin người mượn sách
@@ -305,7 +305,7 @@ void inMuonTra(int i, bookBorRe b[]) // In thông tin người mượn sách
     cout << "Ten nguoi muon: " << b[i].borName << endl;
     cout << "Ngay muon: " << b[i].borDay << endl;
     cout << "Ngay den han: " << b[i].reDay;
-    cout << "-------------------------------------------------\n";
+    cout << "\n-------------------------------------------------\n";
 }
 
 void inThongTinSach(int n, book a[])
@@ -375,7 +375,6 @@ void searchTheoThongTin(int search, int soLuongSach, book mangSach[])
         }
         if (checkTimThongTin == false)
             cout << "Sach khong co trong thu vien !\n";
-        cout << "Dang quay ve chon tinh nang. Vui long cho...";
         system("pause");
         break;
     case 2:
@@ -395,7 +394,6 @@ void searchTheoThongTin(int search, int soLuongSach, book mangSach[])
         }
         if (checkTimThongTin == false)
             cout << "The loai khong co trong thu vien!\n";
-        cout << "Dang quay ve chon tinh nang. Vui long cho...";
         system("pause");
         break;
     case 3:
@@ -415,7 +413,6 @@ void searchTheoThongTin(int search, int soLuongSach, book mangSach[])
         }
         if (checkTimThongTin == false)
             cout << "Sach cua tac gia nay hien chua co trong thu vien !\n";
-        cout << "Dang quay ve chon tinh nang. Vui long cho...\n";
         system("pause");
         break;
     case 4:
@@ -435,7 +432,6 @@ void searchTheoThongTin(int search, int soLuongSach, book mangSach[])
         }
         if (checkTimThongTin == false)
             cout << "Nha xuat ban sach nay khong co trong thu vien !\n";
-        cout << "Dang quay ve chon tinh nang. Vui long cho...\n";
         system("pause");
         break;
     case 5:
@@ -456,7 +452,6 @@ void searchTheoThongTin(int search, int soLuongSach, book mangSach[])
         }
         if (checkTimThongTin == false)
             cout << "Thu vien hien khong co sach cua nam nay !\n";
-        cout << "Dang quay ve chon tinh nang. Vui long cho...\n";
         system("pause");
         break;
     case 0:
@@ -837,7 +832,7 @@ void xoaThongTinNguoiMuon(int &soLuongSachMuon, bookBorRe mangMuonTra[])
 
 void hamCapNhatSoLuongSachTrongThuVien(int &soLuongSach, book mangSach[])
 {
-    int option;
+    int option, count = 1;
     string tenSach;
     cout << "\n";
     cout << "                        CAP NHAT SO LUONG SACH\n";
@@ -872,7 +867,13 @@ void hamCapNhatSoLuongSachTrongThuVien(int &soLuongSach, book mangSach[])
         { // n = soLuongSachMuon (tui gán để tránh bị đổi giá trị soLuong)
             if (tenSach == mangSach[i].tenSach)
             {
-                continue;
+                if (count == 0)
+                    break;
+                else
+                {
+                    count--;
+                    continue;
+                }
             }
             myFile << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh << endl;
         }
