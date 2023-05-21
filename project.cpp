@@ -49,7 +49,7 @@ int main()
     bool quyenAdmin = false;
     system("cls");
     cout << "         CHAO MUNG DEN VOI DU AN QUAN LY THU VIEN CUA TEAM 8!\n";
-    cout << "__________________________________________________________________________\n";
+    cout << "=========================================================================\n";
     cout << " \n                  Chuc ban mot ngay tot lanh!\n";
 hoiAdmin:
     hoiAdmin(chAd); // kiểm tra có phải admin hay không -> truyền tham chiếu chAd
@@ -62,7 +62,7 @@ hoiAdmin:
         {
         nhapLai:
             system("cls"); // xoa man hinh giong clrscr trong pascal
-            cout << "\n       MOI BAN CHON TINH NANG\n";
+            cout << "\n        MOI BAN CHON TINH NANG\n";
             cout << "===========================================\n";
             cout << "||Tim kiem sach              || Chon '1' ||\n";
             cout << "||Nhap sach vao thu vien     || Chon '2' ||\n";
@@ -612,7 +612,7 @@ xoaLai:
     int search;
     bool checkTimThongTin = false; // bao nguoi dung neu khong co sach
     system("cls");
-    cout << "\n             XOA SACH\n";
+    cout << "\n                 XOA SACH\n";
     cout << "===============================================\n";
     cout << "||Xoa sach theo ten sach          || Chon '1'||\n";
     cout << "||Xoa sach theo the loai          || Chon '2'||\n";
