@@ -475,13 +475,14 @@ nhapLai:
     cout << "||Tra cuu muon tra theo ten nguoi muon      || Chon '2'||\n";
     cout << "||Thong tin sach hien co                    || Chon '3'||\n";
     cout << "||Thong tin sach dang duoc muon             || Chon '4'||\n";
-    cout << "||Them nguoi muon sach                      || Chon '5'||\n"; 
+    cout << "||Them nguoi muon sach                      || Chon '5'||\n"; // thêm (thì fileQuanLy ++) và fileSach - 1 sách ---> ghi lại file mượn và file sách
     cout << "||Xoa nguoi muon sach                       || Chon '6'||\n";
     cout << "||Xoa sach khoi thu vien                    || Chon '7'||\n";
     cout << "||Chinh sua thong tin sach                  || Chon '8'||\n";
     cout << "||Chinh sua thong tin nguoi muon            || Chon '9'||\n";
     cout << "||Quay lai chon tinh nang                   || Chon '0'||\n";
     cout << "=========================================================\n";
+    // cout << "Thong ke so sach(cung tac gia,the loai,.) - chon '8'\n";
     do
     {
         cout << "Moi ban chon: ";
@@ -821,15 +822,15 @@ void xoaThongTinNguoiMuon(int &soLuongSachMuon, bookBorRe mangMuonTra[])
         }
         myFile.close();
         cout << "\n------------------DA XOA THANH CONG------------------\n";
+        cout << "Nhan phim bat ki de quay lai tinh nang quan ly.\n";
+        cout << "Dang chay...\n";
         system("pause");
     }
 }
 
 void hamCapNhatSoLuongSachTrongThuVien(int &soLuongSach, book mangSach[])
 {
-    int option, count;
-    cout << "So dau sach cung ten: ";
-    cin >> count;
+    int option;
     string tenSach;
     cout << "\n";
     cout << "                        CAP NHAT SO LUONG SACH\n";
@@ -851,18 +852,19 @@ void hamCapNhatSoLuongSachTrongThuVien(int &soLuongSach, book mangSach[])
     {
     case 0:
     {
-
         cout << "\n\n";
         cout << "------------CAP NHAT SO LUONG SACH TRONG THU VIEN------------\n";
         cout << "Moi ban nhap ten sach vua cho muon (Vui long nhap chinh xac ten sach): ";
         getline(cin, tenSach);
 
-        int n = soLuongSach; // gán để cập nhật số sach, nếu kh bị ảnh hương trong lúc ghi
+        int n = soLuongSach; 
         fstream myFile("fileChuaSach.csv", ios::out);
         for (int i = 0; i < n; i++)
-        { // n = soLuongSachMuon (tui gán để tránh bị đổi giá trị soLuong)
-            if (tenSach == mangSach[i].tenSach && count--)
-                continue;
+        { 
+            if (tenSach == mangSach[i].tenSach)
+            {
+                    continue;
+            }
             myFile << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh << endl;
         }
         myFile.close();
