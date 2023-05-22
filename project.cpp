@@ -475,14 +475,13 @@ nhapLai:
     cout << "||Tra cuu muon tra theo ten nguoi muon      || Chon '2'||\n";
     cout << "||Thong tin sach hien co                    || Chon '3'||\n";
     cout << "||Thong tin sach dang duoc muon             || Chon '4'||\n";
-    cout << "||Them nguoi muon sach                      || Chon '5'||\n"; // thêm (thì fileQuanLy ++) và fileSach - 1 sách ---> ghi lại file mượn và file sách
+    cout << "||Them nguoi muon sach                      || Chon '5'||\n"; 
     cout << "||Xoa nguoi muon sach                       || Chon '6'||\n";
     cout << "||Xoa sach khoi thu vien                    || Chon '7'||\n";
     cout << "||Chinh sua thong tin sach                  || Chon '8'||\n";
     cout << "||Chinh sua thong tin nguoi muon            || Chon '9'||\n";
     cout << "||Quay lai chon tinh nang                   || Chon '0'||\n";
     cout << "=========================================================\n";
-    // cout << "Thong ke so sach(cung tac gia,the loai,.) - chon '8'\n";
     do
     {
         cout << "Moi ban chon: ";
@@ -787,11 +786,7 @@ void xoaThongTinNguoiMuon(int &soLuongSachMuon, bookBorRe mangMuonTra[])
     transform(data.begin(), data.end(), data.begin(), ::tolower);
     system("cls");
 
-    // Check trường hợp người cần xóa.
-    // TH1 : VD trong những người mượn, có những người trùng tên Nam : Đăng Nam, Nam Anh, Nhật Nam,...
-    // -->> những thông tin của người trùng tên Nam
-    // --> gõ tên sách và tên đầy đủ của người tên Nam vd: Đăng Nam - Harry Potter
-    // TH2 : có mỗi người có tên đó -> cho n = 1 -> xóa luôn không phải gõ lại (đang phát triển)
+
     for (int i = 0; i < soLuongSachMuon; i++)
     {
         temp = mangMuonTra[i].borName;
@@ -826,15 +821,15 @@ void xoaThongTinNguoiMuon(int &soLuongSachMuon, bookBorRe mangMuonTra[])
         }
         myFile.close();
         cout << "\n------------------DA XOA THANH CONG------------------\n";
-        cout << "Nhan phim bat ki de quay lai tinh nang quan ly.\n";
-        cout << "Dang chay...\n";
         system("pause");
     }
 }
 
 void hamCapNhatSoLuongSachTrongThuVien(int &soLuongSach, book mangSach[])
 {
-    int option, count = 1;
+    int option, count;
+    cout << "So dau sach cung ten: ";
+    cin >> count;
     string tenSach;
     cout << "\n";
     cout << "                        CAP NHAT SO LUONG SACH\n";
@@ -866,16 +861,8 @@ void hamCapNhatSoLuongSachTrongThuVien(int &soLuongSach, book mangSach[])
         fstream myFile("fileChuaSach.csv", ios::out);
         for (int i = 0; i < n; i++)
         { // n = soLuongSachMuon (tui gán để tránh bị đổi giá trị soLuong)
-            if (tenSach == mangSach[i].tenSach)
-            {
-                if (count == 0)
-                    break;
-                else
-                {
-                    count--;
-                    continue;
-                }
-            }
+            if (tenSach == mangSach[i].tenSach && count--)
+                continue;
             myFile << mangSach[i].tenSach << "," << mangSach[i].theLoai << "," << mangSach[i].tenTacGia << "," << mangSach[i].nxb << "," << mangSach[i].namPhatHanh << endl;
         }
         myFile.close();
